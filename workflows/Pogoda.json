@@ -163,7 +163,7 @@
         "additionalFields": {
           "html": false,
           "sound": "magic",
-          "url": "https://n8n.it4home.pl/webhook/ffcf63e1-d18b-4dfe-8093-6e121ea8f511"
+          "url": "https://n8n.it4home.pl/webhook/ffcf63e1-d18b-4dfe-8093-6e121ea8f511?user=luczluk"
         }
       },
       "id": "45e57735-d1ad-435b-8894-b2d90aca8960",
@@ -234,7 +234,7 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.1,
       "position": [
-        -200,
+        -260,
         260
       ]
     },
@@ -284,6 +284,6 @@
   },
   "tags": [],
   "triggerCount": 2,
-  "updatedAt": "2023-06-30T10:25:25.000Z",
-  "versionId": "d548cfbf-8443-4abd-b0a0-ab78f38a4234"
+  "updatedAt": "2023-06-30T13:25:17.000Z",
+  "versionId": "5bed2b45-8645-47a7-b2f0-71f1410a05fa"
 }
