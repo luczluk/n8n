@@ -1,0 +1,170 @@
+{
+  "active": true,
+  "connections": {
+    "Gmail": {
+      "main": [
+        [
+          {
+            "node": "Dropbox",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Dropbox": {
+      "main": [
+        [
+          {
+            "node": "Gmail1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cron": {
+      "main": [
+        [
+          {
+            "node": "Gmail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gmail1": {
+      "main": [
+        [
+          {
+            "node": "Pushover",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2023-06-30T09:07:37.563Z",
+  "id": "2",
+  "name": "Usuń stare recepty",
+  "nodes": [
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "getAll",
+        "additionalFields": {
+          "q": "label:recepta older_than:40d"
+        }
+      },
+      "name": "Gmail",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 1,
+      "position": [
+        860,
+        640
+      ],
+      "id": "e275798a-a76e-45ff-b14d-614db1f25eb2",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "2",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "delete",
+        "messageId": "={{$node[\"Gmail\"].json[\"id\"]}}"
+      },
+      "name": "Gmail1",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 1,
+      "position": [
+        1320,
+        640
+      ],
+      "id": "be2589e3-fcc1-42db-b68f-f733710d7848",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "2",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "path": "=/Recepty/{{new Date().getYear()}}_{{new Date().getMonth()}}_{{new Date().getDay()}}_{{$node[\"Gmail\"].binary.attachment_0.fileName}}",
+        "binaryData": true,
+        "binaryPropertyName": "=attachment_0"
+      },
+      "name": "Dropbox",
+      "type": "n8n-nodes-base.dropbox",
+      "typeVersion": 1,
+      "position": [
+        1100,
+        640
+      ],
+      "id": "bf80adeb-7e71-47ee-8475-94d10ce0ab86",
+      "credentials": {
+        "dropboxOAuth2Api": {
+          "id": "3",
+          "name": "Dropbox account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "triggerTimes": {
+          "item": [
+            {
+              "hour": 9
+            }
+          ]
+        }
+      },
+      "name": "Cron",
+      "type": "n8n-nodes-base.cron",
+      "typeVersion": 1,
+      "position": [
+        620,
+        640
+      ],
+      "id": "98b341e5-5186-40f1-a04c-ceb80bd4c9c2"
+    },
+    {
+      "parameters": {
+        "userKey": "udbkdo9yvaps1khkce78ogwwro4veo",
+        "message": "={{$node[\"Dropbox\"].parameter[\"path\"]}}",
+        "priority": 0,
+        "additionalFields": {
+          "title": "Usunięto receptę"
+        }
+      },
+      "name": "Pushover",
+      "type": "n8n-nodes-base.pushover",
+      "typeVersion": 1,
+      "position": [
+        1540,
+        640
+      ],
+      "id": "992bf4f8-3b4d-47c3-a940-98af2811a906",
+      "credentials": {
+        "pushoverApi": {
+          "id": "1",
+          "name": "Pushover account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {},
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2023-06-30T09:49:33.000Z",
+  "versionId": "6964e890-19e7-432a-b454-c787c9446f94"
+}
