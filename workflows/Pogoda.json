@@ -1,0 +1,289 @@
+{
+  "active": true,
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "IF valid user",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code1": {
+      "main": [
+        [
+          {
+            "node": "IF",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "WeatherOneCall": {
+      "main": [
+        [
+          {
+            "node": "Code1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Agregate": {
+      "main": [
+        [
+          {
+            "node": "WeatherOneCall",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Pushover",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Agregate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF valid user": {
+      "main": [
+        [
+          {
+            "node": "Agregate",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Bad Request respond",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2023-06-30T08:07:32.768Z",
+  "id": "1",
+  "name": "Pogoda",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "ffcf63e1-d18b-4dfe-8093-6e121ea8f511",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "51eb1d65-7b98-4768-9c4d-51276c2207df",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        -260,
+        500
+      ],
+      "webhookId": "ffcf63e1-d18b-4dfe-8093-6e121ea8f511"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={{ $json.messageHtml }}",
+        "options": {}
+      },
+      "id": "214055bb-5c19-46d8-b8a4-0f32a229c347",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        900,
+        280
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "\nclass nowyElement \n{\n    constructor(data, main, temp, feels_like, pressure, wind, pop, rain, description)\n    {    \n        this.data = data;\n        this.main = `${(main + '      ').substring(0,5)}`;\n        this.description = description;\n        this.temp = temp;\n        this.feels_like = feels_like.toFixed(0);\n        this.pressure = pressure;\n        this.wind = wind.toFixed(0);\n        this.pop = `${(pop * 100).toFixed(0)}%`;\n        this.rain = `${ rain === undefined ? 0 : (rain[\"1h\"] * 100).toFixed(0) }`;\n        this.message = this.getMessage();\n    }\n    getMessage()\n    {\n        let rain = `${ this.rain > 0 ? `RAIN ${this.rain} !!!  ` : `` }`;\n        let prefix = `${ this.rain > 0 ? ` => ` : `` }`;\n        return `${ prefix }${ this.data } ${ this.main } T:${ this.temp } od:${ this.feels_like } ${this.pressure} ${this.wind}km/h POP:${this.pop} ${rain}<BR>`;        \n    }\n}\nconst newItems = [];\nconst timezoneOffset = items[0].json.timezone_offset;\nlet output = '';\nlet howMany = 0;\nfor (itema of items[0].json.hourly) \n{\n    howMany = howMany + 1;\n    if(howMany > 15) { break;}\n    var date = new Date((itema.dt + timezoneOffset) * 1000);\n    var hours = date.getHours();\n    var minutes = \"0\" + date.getMinutes();\n    \n    // Will display time in 10:30:23 format\n    var formattedTime = hours + ':' + minutes.substr(-2);   // + ':' + seconds.substr(-2);\n    itema.Date = formattedTime;\n    \n    // constructor(data, main, feels_like, pressure, wind, pop, rain, description)\n    let newItem = new nowyElement(itema.Date, itema.weather[0].main, itema.temp, itema.feels_like, itema.pressure, itema.wind_speed, itema.pop, itema.rain, itema.weather[0].description)                 \n        \n    output = output + newItem.getMessage();\n}\n\nnewItems.push(\n    {\n        json: {\n            messages: output.replace(/<BR>/g, '\\n'),\n            messageHtml: output\n        }\n    }\n);\nreturn newItems;"
+      },
+      "id": "08be2ba7-ecec-401f-9218-40c929235e00",
+      "name": "Code1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [
+        480,
+        360
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://api.openweathermap.org/data/2.5/onecall?lat=52.1531&lon=21.1104&appid=ae75f9863b9eac983c31433a0edfe79d&units=metric",
+        "options": {}
+      },
+      "id": "dae70030-a383-42c9-99d6-b4bafcc4164a",
+      "name": "WeatherOneCall",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        300,
+        360
+      ]
+    },
+    {
+      "parameters": {
+        "userKey": "udbkdo9yvaps1khkce78ogwwro4veo",
+        "message": "={{ $json.messages }}",
+        "priority": 0,
+        "additionalFields": {
+          "html": false,
+          "sound": "magic",
+          "url": "https://n8n.it4home.pl/webhook/ffcf63e1-d18b-4dfe-8093-6e121ea8f511"
+        }
+      },
+      "id": "45e57735-d1ad-435b-8894-b2d90aca8960",
+      "name": "Pushover",
+      "type": "n8n-nodes-base.pushover",
+      "typeVersion": 1,
+      "position": [
+        900,
+        460
+      ],
+      "credentials": {
+        "pushoverApi": {
+          "id": "1",
+          "name": "Pushover account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $('Agregate').item.json.headers.host }}",
+              "value2": "n8n.it4home.pl"
+            }
+          ]
+        }
+      },
+      "id": "23c47d10-2041-4f84-b190-bc7213257de8",
+      "name": "IF",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        640,
+        360
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "return $input.all();"
+      },
+      "id": "6010ad13-ce43-4a0f-9f8e-5e68bf73113f",
+      "name": "Agregate",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [
+        120,
+        360
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 7 * * 1-5"
+            },
+            {
+              "field": "cronExpression",
+              "expression": "0 9 * * 6,0"
+            }
+          ]
+        }
+      },
+      "id": "0e06f8cb-cbab-4f25-a5e4-37f91b6fe8b4",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -200,
+        260
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "noData",
+        "options": {
+          "responseCode": 404
+        }
+      },
+      "id": "dc34b80f-bda3-4394-9a92-da816970b495",
+      "name": "Bad Request respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        120,
+        540
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.query.user }}",
+              "value2": "luczluk"
+            }
+          ]
+        }
+      },
+      "id": "daf8a9b0-77eb-45db-99f4-51ecefbf5f89",
+      "name": "IF valid user",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        -80,
+        500
+      ]
+    }
+  ],
+  "pinData": {},
+  "settings": {},
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrencyRules": []
+    }
+  },
+  "tags": [],
+  "triggerCount": 2,
+  "updatedAt": "2023-06-30T10:25:25.000Z",
+  "versionId": "d548cfbf-8443-4abd-b0a0-ab78f38a4234"
+}
