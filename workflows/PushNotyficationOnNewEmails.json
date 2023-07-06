@@ -1,22 +1,11 @@
 {
   "active": true,
   "connections": {
-    "Gmail": {
-      "main": [
-        [
-          {
-            "node": "Gmail - Add Label",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Cron": {
       "main": [
         [
           {
-            "node": "Gmail",
+            "node": "Gmail - nowa faktura",
             "type": "main",
             "index": 0
           }
@@ -66,6 +55,17 @@
           }
         ]
       ]
+    },
+    "Gmail - nowa faktura": {
+      "main": [
+        [
+          {
+            "node": "Gmail - Add Label",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2023-06-30T09:19:41.235Z",
@@ -74,31 +74,8 @@
   "nodes": [
     {
       "parameters": {
-        "resource": "message",
-        "operation": "getAll",
-        "additionalFields": {
-          "q": "label:faktura is:unread -label:{AutomatFaktura}"
-        }
-      },
-      "name": "Gmail",
-      "type": "n8n-nodes-base.gmail",
-      "typeVersion": 1,
-      "position": [
-        880,
-        680
-      ],
-      "id": "c7c50cde-781f-49d6-90f2-91c25fccd3e0",
-      "credentials": {
-        "gmailOAuth2": {
-          "id": "2",
-          "name": "Gmail account"
-        }
-      }
-    },
-    {
-      "parameters": {
         "userKey": "udbkdo9yvaps1khkce78ogwwro4veo",
-        "message": "=Nowa faktura od: {{$node[\"Gmail\"].json[\"from\"][\"text\"]}} \nTemat: {{$node[\"Gmail\"].json[\"subject\"]}}\nTreść:",
+        "message": "=Nowa faktura od: {{$node[\"Gmail - nowa faktura\"].json[\"from\"][\"text\"]}} \nTemat: {{$node[\"Gmail - nowa faktura\"].json[\"subject\"]}}\nTreść:",
         "priority": 1,
         "additionalFields": {
           "sound": "cashregister",
@@ -144,7 +121,7 @@
     {
       "parameters": {
         "resource": "messageLabel",
-        "messageId": "={{$node[\"Gmail\"].json[\"id\"]}}",
+        "messageId": "={{$node[\"Gmail - nowa faktura\"].json[\"id\"]}}",
         "labelIds": [
           "Label_1437748874565904236"
         ]
@@ -255,6 +232,29 @@
           "name": "Pushover account"
         }
       }
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "getAll",
+        "additionalFields": {
+          "q": "label:faktura is:unread -label:{AutomatFaktura}"
+        }
+      },
+      "name": "Gmail - nowa faktura",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 1,
+      "position": [
+        880,
+        680
+      ],
+      "id": "c7c50cde-781f-49d6-90f2-91c25fccd3e0",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "2",
+          "name": "Gmail account"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -262,6 +262,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 2,
-  "updatedAt": "2023-06-30T09:48:11.000Z",
-  "versionId": "8763ff2f-985a-4258-aa6d-6454f78c2b42"
+  "updatedAt": "2023-07-06T12:15:49.000Z",
+  "versionId": "34687f67-330f-44b9-b16c-12777b677434"
 }
