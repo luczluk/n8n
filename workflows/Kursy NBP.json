@@ -1,0 +1,269 @@
+{
+  "active": true,
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Pobierz ostatni numer tabeli",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pobierz ostatni numer tabeli": {
+      "main": [
+        [
+          {
+            "node": "NBP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "NBP Request": {
+      "main": [
+        [
+          {
+            "node": "Czy jest nowy kurs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Czy jest nowy kurs": {
+      "main": [
+        [
+          {
+            "node": "Przygotuj dane do wiadomosci",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "No Operation, do nothing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Przygotuj dane do wiadomosci": {
+      "main": [
+        [
+          {
+            "node": "Aktualizuj nr tabeli nbp",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aktualizuj nr tabeli nbp": {
+      "main": [
+        [
+          {
+            "node": "Pushover",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2023-07-07T10:52:00.722Z",
+  "id": "5",
+  "name": "Kursy NBP",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "* 11,12 * * 1-5"
+            }
+          ]
+        }
+      },
+      "id": "f38ef9be-6b9e-4fe8-8fe0-2c00e1f07330",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -180,
+        380
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "19879138-0e54-4fbf-b2ff-d88716a02a61",
+      "name": "No Operation, do nothing",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        660,
+        440
+      ]
+    },
+    {
+      "parameters": {
+        "userKey": "udbkdo9yvaps1khkce78ogwwro4veo",
+        "message": "=Data aktualnej tabeli: {{ $json.fields.Data }} \nNumer aktualnej tabeli: {{ $json.fields['Nr tabeli'] }}\nUSD: {{ $json.fields.USD }}\nEUR: {{ $json.fields.EUR }}\nCHF: {{ $json.fields.CHF }}",
+        "priority": 0,
+        "additionalFields": {
+          "sound": "alien",
+          "title": "Kursy NBP 2"
+        }
+      },
+      "id": "5a66c75a-1aa9-4eec-844f-e998425837b9",
+      "name": "Pushover",
+      "type": "n8n-nodes-base.pushover",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        280
+      ],
+      "credentials": {
+        "pushoverApi": {
+          "id": "1",
+          "name": "Pushover account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "list",
+        "application": {
+          "__rl": true,
+          "value": "appZ36VRH8PFgp2u8",
+          "mode": "id"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tbljTQwe8ITnpR2uA",
+          "mode": "id"
+        },
+        "returnAll": false,
+        "limit": 1,
+        "additionalOptions": {
+          "filterByFormula": "Key='NrTabeliNBP'"
+        }
+      },
+      "id": "7e60359f-876f-4317-8691-c5a7b61311ec",
+      "name": "Pobierz ostatni numer tabeli",
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 1,
+      "position": [
+        20,
+        380
+      ],
+      "credentials": {
+        "airtableApi": {
+          "id": "7",
+          "name": "Airtable account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "http://api.nbp.pl/api/exchangerates/tables/A/?format=json",
+        "options": {}
+      },
+      "id": "8e4e6318-47a9-44cd-a7d1-cc3884957950",
+      "name": "NBP Request",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        220,
+        380
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $('NBP Request').item.json.no }}",
+              "operation": "notEqual",
+              "value2": "={{ $('Pobierz ostatni numer tabeli').item.json.fields.Value }}"
+            }
+          ]
+        }
+      },
+      "id": "87697525-a0b4-4c3c-8558-f94f47ae1556",
+      "name": "Czy jest nowy kurs",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        420,
+        380
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "let nrTabeli = \"\";\nlet data = \"\";\nlet usd = \"\";\nlet eur = \"\";\nlet chf = \"\";\nconst newItems = [];\n\nfor (const item of $input.all()) {\n  item.json.myNewField = 1;\n  nrTabeli = item.json.no;\n  data = item.json.effectiveDate;\n  \n  for(const rate of item.json.rates){\n   if (rate.code == \"USD\") {\n     usd = rate.mid;\n   }\n   if (rate.code == \"EUR\") {\n     eur = rate.mid;\n   }\n   if (rate.code == \"CHF\") {\n     chf = rate.mid;\n   } \n  }  \n}\n\nnewItems.push(\n    {\n        json: {\n            'Nr tabeli': nrTabeli,\n          'Value': nrTabeli,\n            Data: data,\n            USD: usd,\n            EUR: eur,\n            CHF: chf\n        }\n    }\n);\nreturn newItems;"
+      },
+      "id": "9db4db05-c044-4003-8609-2aad0f510af0",
+      "name": "Przygotuj dane do wiadomosci",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [
+        660,
+        280
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "application": {
+          "__rl": true,
+          "value": "appZ36VRH8PFgp2u8",
+          "mode": "id"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tbljTQwe8ITnpR2uA",
+          "mode": "id"
+        },
+        "id": "={{ $('Pobierz ostatni numer tabeli').item.json.id }}",
+        "updateAllFields": false,
+        "fields": [
+          "Value"
+        ],
+        "options": {
+          "typecast": false
+        }
+      },
+      "id": "790262c2-b6e0-40dd-af6c-0e491b899477",
+      "name": "Aktualizuj nr tabeli nbp",
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 1,
+      "position": [
+        840,
+        280
+      ],
+      "credentials": {
+        "airtableApi": {
+          "id": "7",
+          "name": "Airtable account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {},
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrencyRules": []
+    }
+  },
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2023-07-07T14:45:16.000Z",
+  "versionId": "8f101481-5fa3-4127-8c92-cc613d0a0790"
+}
