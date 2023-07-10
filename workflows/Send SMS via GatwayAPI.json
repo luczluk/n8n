@@ -1,0 +1,103 @@
+{
+  "active": true,
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2023-07-10T10:07:54.799Z",
+  "id": "n3a74LVnmQjpnsRU",
+  "name": "Send SMS via GatwayAPI",
+  "nodes": [
+    {
+      "parameters": {
+        "authentication": "basicAuth",
+        "httpMethod": "POST",
+        "path": "sms",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "ac3c4458-5371-4e03-a32a-78e4c1e34830",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        640,
+        400
+      ],
+      "webhookId": "abeb4b83-cfa1-4a23-b1ff-f2c6537e2f3d",
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "fusuykIPI8PjFSMx",
+          "name": "Basic auth to webhook"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://gatewayapi.com/rest/mtsms",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "token",
+              "value": "XgMKsfUWQwWFIgVA9wgV5gO71E5Oy1wimfVJ1PkkMifA3D6Ma-KwAiOf5KKKsBRj"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\"sender\": \"Kursy NBP\", \"message\": \"Wiadomosc\", \"recipients\": [{\"msisdn\": 48509245959}]}",
+        "options": {}
+      },
+      "id": "d58002f7-295f-42c6-9b34-c8836ebe78aa",
+      "name": "HTTP Request",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        1040,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nfor (const item of $input.all()) {\n  item.json.myNewField = 1;\n}\n\nreturn $input.all();"
+      },
+      "id": "dccd8556-b441-48db-b1b2-963eb5a86cb5",
+      "name": "Code",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [
+        1260,
+        400
+      ]
+    }
+  ],
+  "pinData": {},
+  "settings": {},
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2023-07-10T11:54:54.000Z",
+  "versionId": "1c07ec1f-f7fc-46b7-94dc-0e0fbc8cd1ce"
+}
