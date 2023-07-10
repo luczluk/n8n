@@ -5,6 +5,17 @@
       "main": [
         [
           {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
             "node": "Airtable",
             "type": "main",
             "index": 0
@@ -19,6 +30,7 @@
   "nodes": [
     {
       "parameters": {
+        "httpMethod": "POST",
         "path": "gatewayapi",
         "options": {}
       },
@@ -27,8 +39,8 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 1,
       "position": [
-        560,
-        380
+        260,
+        360
       ],
       "webhookId": "2137ccb8-5b4e-43fa-a658-3abfbd11f27c"
     },
@@ -52,7 +64,7 @@
       "type": "n8n-nodes-base.airtable",
       "typeVersion": 1,
       "position": [
-        820,
+        1180,
         380
       ],
       "credentials": {
@@ -61,6 +73,19 @@
           "name": "Airtable account"
         }
       }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nfor (const item of $input.all()) {\n  item.json.myNewField = 1;\n}\n\nreturn $input.all();"
+      },
+      "id": "56b3fa84-6978-4591-85d7-de1be4975e86",
+      "name": "Code",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [
+        780,
+        380
+      ]
     }
   ],
   "pinData": {},
@@ -68,6 +93,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2023-07-10T10:00:05.000Z",
-  "versionId": "be4c5c36-e7bc-40fb-baa3-bc8518b34a72"
+  "updatedAt": "2023-07-10T10:24:16.000Z",
+  "versionId": "809767b4-c917-4e84-bcc0-5d6bf41084ee"
 }
