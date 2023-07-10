@@ -113,7 +113,7 @@
     {
       "parameters": {
         "userKey": "udbkdo9yvaps1khkce78ogwwro4veo",
-        "message": "=Data aktualnej tabeli: {{ $json.fields.Data }} \nNumer aktualnej tabeli: {{ $json.fields['Nr tabeli'] }}\nUSD: {{ $json.fields.USD }}\nEUR: {{ $json.fields.EUR }}\nCHF: {{ $json.fields.CHF }}",
+        "message": "=Data aktualnej tabeli: {{ $('Przygotuj dane do wiadomosci').item.json.Data }} \nNumer aktualnej tabeli: {{ $('Przygotuj dane do wiadomosci').item.json['Nr tabeli'] }}\nUSD {{ $('Przygotuj dane do wiadomosci').item.json.USD }}\nEUR {{ $('Przygotuj dane do wiadomosci').item.json.EUR }}\nCHF {{ $('Przygotuj dane do wiadomosci').item.json.CHF }}     ",
         "priority": 0,
         "additionalFields": {
           "sound": "alien",
@@ -264,6 +264,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2023-07-07T14:45:16.000Z",
-  "versionId": "8f101481-5fa3-4127-8c92-cc613d0a0790"
+  "updatedAt": "2023-07-10T09:54:43.000Z",
+  "versionId": "434f43d5-6d80-425f-a29d-e817d36b71c6"
 }
