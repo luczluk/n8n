@@ -1,0 +1,73 @@
+{
+  "active": true,
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Airtable",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2023-07-10T09:42:57.104Z",
+  "id": "kTUALZL38oDDli64",
+  "name": "Webhook for GatewayAPI",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "gatewayapi",
+        "options": {}
+      },
+      "id": "66bc7b80-3ea7-439e-9212-b7169b6382eb",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        560,
+        380
+      ],
+      "webhookId": "2137ccb8-5b4e-43fa-a658-3abfbd11f27c"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "application": {
+          "__rl": true,
+          "value": "appZ36VRH8PFgp2u8",
+          "mode": "id"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblrolkvFpNXU1Kyl",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "id": "510427f8-ae5e-445a-84c0-d6d0657973fe",
+      "name": "Airtable",
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 1,
+      "position": [
+        820,
+        380
+      ],
+      "credentials": {
+        "airtableApi": {
+          "id": "7",
+          "name": "Airtable account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {},
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2023-07-10T10:00:05.000Z",
+  "versionId": "be4c5c36-e7bc-40fb-baa3-bc8518b34a72"
+}
