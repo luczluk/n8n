@@ -1,5 +1,5 @@
 {
-  "active": true,
+  "active": false,
   "connections": {
     "Webhook": {
       "main": [
@@ -93,6 +93,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2023-07-10T10:24:16.000Z",
-  "versionId": "809767b4-c917-4e84-bcc0-5d6bf41084ee"
+  "updatedAt": "2023-07-11T07:55:59.000Z",
+  "versionId": "4fe65a4a-003e-4d78-8d79-f04c8ab07a87"
 }
