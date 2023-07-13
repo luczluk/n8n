@@ -1,0 +1,355 @@
+{
+  "active": true,
+  "connections": {
+    "POST": {
+      "main": [
+        [
+          {
+            "node": "Set",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set": {
+      "main": [
+        [
+          {
+            "node": "Airtable1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Airtable1": {
+      "main": [
+        [
+          {
+            "node": "Shift time 7-15",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HttpRequestBody": {
+      "main": [
+        [
+          {
+            "node": "Home Assistant",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HEAD": {
+      "main": [
+        [
+          {
+            "node": "No Operation, do nothing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Shift time 7-15": {
+      "main": [
+        [
+          {
+            "node": "HttpRequestBody",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "No Operation, do nothing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Home Assistant": {
+      "main": [
+        [
+          {
+            "node": "HA SMS ON",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HA SMS ON": {
+      "main": [
+        [
+          {
+            "node": "Send SMS",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "No Operation, do nothing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2023-07-11T11:35:59.819Z",
+  "id": "L0XsDol4ma00cyET",
+  "name": "Trello webhooks with P3 Notifications",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "trello",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "id": "e47d081a-283c-4118-9ee6-32e587050fd6",
+      "name": "POST",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        0,
+        240
+      ],
+      "webhookId": "41e5098e-3b2f-44ee-b5d3-fda7d2b4a8b1"
+    },
+    {
+      "parameters": {
+        "httpMethod": "HEAD",
+        "path": "trello",
+        "options": {}
+      },
+      "id": "449db65c-7525-4c63-9a14-04956677c73f",
+      "name": "HEAD",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        200,
+        420
+      ],
+      "webhookId": "1e9f20e6-2f4e-47fd-bfd3-b0ffef014478"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "application": {
+          "__rl": true,
+          "value": "appZ36VRH8PFgp2u8",
+          "mode": "id"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tbljTQwe8ITnpR2uA",
+          "mode": "id"
+        },
+        "id": "=recSHA4toon5JSCmE",
+        "updateAllFields": false,
+        "fields": [
+          "Value"
+        ],
+        "options": {}
+      },
+      "id": "93202ca5-02b4-4dcd-a9b5-fe6cebf7ce22",
+      "name": "Airtable1",
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 1,
+      "position": [
+        440,
+        240
+      ],
+      "credentials": {
+        "airtableApi": {
+          "id": "7",
+          "name": "Airtable account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "Value",
+              "value": "={{ $('POST').item.json.body.action.data.card.name.replace('Transportation Execution Product Team', 'TREX') }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "6f2530da-e80a-4e51-9a48-0c772eb76eb7",
+      "name": "Set",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        220,
+        240
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "8dce50ba-b46f-43f1-acef-ba585922dc2f",
+      "name": "No Operation, do nothing",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1500,
+        420
+      ]
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "sender",
+              "value": "P3_ALARM"
+            },
+            {
+              "name": "message",
+              "value": "={{ $('Set').item.json.Value }}"
+            },
+            {
+              "name": "recipients",
+              "value": "48509245959"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "f932e1ad-fb00-47e1-bf91-d6d6ee352d16",
+      "name": "HttpRequestBody",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        840,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "number": [
+            {
+              "value1": "={{$now.hour}}",
+              "value2": 17
+            },
+            {
+              "value1": "={{$now.hour}}",
+              "operation": "largerEqual",
+              "value2": 7
+            }
+          ]
+        }
+      },
+      "id": "4093dd5b-0374-4ce8-a5df-114087b6a51b",
+      "name": "Shift time 7-15",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        620,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "state",
+        "entityId": "input_boolean.p3_sms"
+      },
+      "id": "505fd154-13b1-4185-95ef-9054e90a9afe",
+      "name": "Home Assistant",
+      "type": "n8n-nodes-base.homeAssistant",
+      "typeVersion": 1,
+      "position": [
+        1040,
+        220
+      ],
+      "credentials": {
+        "homeAssistantApi": {
+          "id": "fm6tVdL9LCuCE8lq",
+          "name": "Home Assistant account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://n8n.it4home.pl/webhook/sms",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBasicAuth",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "sender",
+              "value": "={{ $('HttpRequestBody').item.json.sender }}"
+            },
+            {
+              "name": "message",
+              "value": "={{ $('HttpRequestBody').item.json.message }}"
+            },
+            {
+              "name": "=recipient",
+              "value": "={{ $('HttpRequestBody').item.json.recipients }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a6bba330-f1f0-4467-b3cb-2fda40e09e6e",
+      "name": "Send SMS",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        1460,
+        200
+      ],
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "fusuykIPI8PjFSMx",
+          "name": "Basic auth to webhook"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.state }}",
+              "value2": "on"
+            }
+          ]
+        }
+      },
+      "id": "e5ee7b58-9ea8-471c-a2d2-4459f5340053",
+      "name": "HA SMS ON",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        1240,
+        220
+      ]
+    }
+  ],
+  "pinData": {},
+  "settings": {},
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 2,
+  "updatedAt": "2023-07-13T14:16:01.000Z",
+  "versionId": "4721583e-c188-4d46-9960-d8ce9329746d"
+}
