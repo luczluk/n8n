@@ -16,18 +16,7 @@
       "main": [
         [
           {
-            "node": "Airtable1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Airtable1": {
-      "main": [
-        [
-          {
-            "node": "Shift time 7-15",
+            "node": "P3",
             "type": "main",
             "index": 0
           }
@@ -102,6 +91,24 @@
           }
         ]
       ]
+    },
+    "P3": {
+      "main": [
+        [
+          {
+            "node": "Shift time 7-15",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "No Operation, do nothing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2023-07-11T11:35:59.819Z",
@@ -121,7 +128,7 @@
       "typeVersion": 1,
       "position": [
         0,
-        240
+        180
       ],
       "webhookId": "41e5098e-3b2f-44ee-b5d3-fda7d2b4a8b1"
     },
@@ -136,45 +143,10 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 1,
       "position": [
-        200,
-        420
+        0,
+        400
       ],
       "webhookId": "1e9f20e6-2f4e-47fd-bfd3-b0ffef014478"
-    },
-    {
-      "parameters": {
-        "operation": "update",
-        "application": {
-          "__rl": true,
-          "value": "appZ36VRH8PFgp2u8",
-          "mode": "id"
-        },
-        "table": {
-          "__rl": true,
-          "value": "tbljTQwe8ITnpR2uA",
-          "mode": "id"
-        },
-        "id": "=recSHA4toon5JSCmE",
-        "updateAllFields": false,
-        "fields": [
-          "Value"
-        ],
-        "options": {}
-      },
-      "id": "93202ca5-02b4-4dcd-a9b5-fe6cebf7ce22",
-      "name": "Airtable1",
-      "type": "n8n-nodes-base.airtable",
-      "typeVersion": 1,
-      "position": [
-        440,
-        240
-      ],
-      "credentials": {
-        "airtableApi": {
-          "id": "7",
-          "name": "Airtable account"
-        }
-      }
     },
     {
       "parameters": {
@@ -194,8 +166,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 2,
       "position": [
-        220,
-        240
+        340,
+        180
       ]
     },
     {
@@ -205,7 +177,7 @@
       "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
       "position": [
-        1500,
+        1780,
         420
       ]
     },
@@ -235,8 +207,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 2,
       "position": [
-        840,
-        220
+        1040,
+        120
       ]
     },
     {
@@ -260,8 +232,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 1,
       "position": [
-        620,
-        240
+        840,
+        160
       ]
     },
     {
@@ -274,8 +246,8 @@
       "type": "n8n-nodes-base.homeAssistant",
       "typeVersion": 1,
       "position": [
-        1040,
-        220
+        1260,
+        120
       ],
       "credentials": {
         "homeAssistantApi": {
@@ -314,8 +286,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        1460,
-        200
+        1740,
+        100
       ],
       "credentials": {
         "httpBasicAuth": {
@@ -340,8 +312,29 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 1,
       "position": [
-        1240,
-        220
+        1460,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.Value }}",
+              "operation": "contains",
+              "value2": "P3 Incident"
+            }
+          ]
+        }
+      },
+      "id": "26a83771-7bc0-421c-b214-6d90860f23cc",
+      "name": "P3",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        540,
+        180
       ]
     }
   ],
@@ -350,6 +343,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 2,
-  "updatedAt": "2023-07-13T14:16:01.000Z",
-  "versionId": "4721583e-c188-4d46-9960-d8ce9329746d"
+  "updatedAt": "2023-07-15T10:45:02.000Z",
+  "versionId": "43522a71-ae0d-455b-a432-e98875999234"
 }
