@@ -166,7 +166,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 2,
       "position": [
-        340,
+        200,
         180
       ]
     },
@@ -196,7 +196,7 @@
             },
             {
               "name": "recipients",
-              "value": "48509245959"
+              "value": "48721961723"
             }
           ]
         },
@@ -207,8 +207,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 2,
       "position": [
-        1040,
-        120
+        920,
+        40
       ]
     },
     {
@@ -232,8 +232,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 1,
       "position": [
-        840,
-        160
+        640,
+        100
       ]
     },
     {
@@ -246,8 +246,8 @@
       "type": "n8n-nodes-base.homeAssistant",
       "typeVersion": 1,
       "position": [
-        1260,
-        120
+        1140,
+        40
       ],
       "credentials": {
         "homeAssistantApi": {
@@ -286,8 +286,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        1740,
-        100
+        1640,
+        20
       ],
       "credentials": {
         "httpBasicAuth": {
@@ -312,8 +312,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 1,
       "position": [
-        1460,
-        120
+        1360,
+        40
       ]
     },
     {
@@ -333,7 +333,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 1,
       "position": [
-        540,
+        400,
         180
       ]
     }
@@ -343,6 +343,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 2,
-  "updatedAt": "2023-07-15T10:45:02.000Z",
-  "versionId": "43522a71-ae0d-455b-a432-e98875999234"
+  "updatedAt": "2023-07-16T13:31:08.000Z",
+  "versionId": "ef97cb2c-5991-46c1-a593-75770e6bc17a"
 }
