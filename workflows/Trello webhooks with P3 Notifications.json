@@ -16,7 +16,7 @@
       "main": [
         [
           {
-            "node": "P3",
+            "node": "P3 & createCard",
             "type": "main",
             "index": 0
           }
@@ -92,7 +92,7 @@
         ]
       ]
     },
-    "P3": {
+    "P3 & createCard": {
       "main": [
         [
           {
@@ -156,6 +156,10 @@
             {
               "name": "Value",
               "value": "={{ $('POST').item.json.body.action.data.card.name.replace('Transportation Execution Product Team', 'TREX') }}"
+            },
+            {
+              "name": "Type",
+              "value": "={{ $json.body.action.type }}"
             }
           ]
         },
@@ -324,12 +328,16 @@
               "value1": "={{ $json.Value }}",
               "operation": "contains",
               "value2": "P3 Incident"
+            },
+            {
+              "value1": "={{ $json.Type }}",
+              "value2": "createCard"
             }
           ]
         }
       },
       "id": "26a83771-7bc0-421c-b214-6d90860f23cc",
-      "name": "P3",
+      "name": "P3 & createCard",
       "type": "n8n-nodes-base.if",
       "typeVersion": 1,
       "position": [
@@ -343,6 +351,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 2,
-  "updatedAt": "2023-07-16T13:31:08.000Z",
-  "versionId": "ef97cb2c-5991-46c1-a593-75770e6bc17a"
+  "updatedAt": "2023-07-19T09:56:49.000Z",
+  "versionId": "94bdff51-ce26-478f-94f1-5b9c4e2f7473"
 }
