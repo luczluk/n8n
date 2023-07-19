@@ -1,0 +1,208 @@
+{
+  "active": true,
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Trello",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Trello": {
+      "main": [
+        [
+          {
+            "node": "Due date is null",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Due date is null": {
+      "main": [
+        [
+          {
+            "node": "Trello1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Card Due",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Card Due": {
+      "main": [
+        [
+          {
+            "node": "Trello2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2023-07-19T10:00:23.388Z",
+  "id": "HJLQwIsQJhXLYr8Y",
+  "name": "Clean trello P3 queue",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours"
+            }
+          ]
+        }
+      },
+      "id": "65d4bcda-3896-49d8-a2a2-bdd27493077b",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        740,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "list",
+        "operation": "getCards",
+        "id": "64afcb1e63c640ea756e1569",
+        "returnAll": true,
+        "additionalFields": {
+          "fields": "all"
+        }
+      },
+      "id": "04ab1bc3-4b76-4db0-98de-561bfceaa7fb",
+      "name": "Trello",
+      "type": "n8n-nodes-base.trello",
+      "typeVersion": 1,
+      "position": [
+        960,
+        400
+      ],
+      "credentials": {
+        "trelloApi": {
+          "id": "HwrrZ2rmdMWD3klI",
+          "name": "Trello account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.due }}",
+              "value2": "={{ null }}"
+            }
+          ]
+        }
+      },
+      "id": "694dc394-f84c-413c-9c2b-ba0516f93a8b",
+      "name": "Due date is null",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        1160,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "id": {
+          "__rl": true,
+          "value": "={{ $('Due date is null').item.json.id }}",
+          "mode": "id"
+        },
+        "updateFields": {
+          "due": "={{ DateTime.now().plus({ hours: 8 }).toISO() }}"
+        }
+      },
+      "id": "3efe9b58-856e-423e-b2e6-168717733422",
+      "name": "Trello1",
+      "type": "n8n-nodes-base.trello",
+      "typeVersion": 1,
+      "position": [
+        1480,
+        280
+      ],
+      "credentials": {
+        "trelloApi": {
+          "id": "HwrrZ2rmdMWD3klI",
+          "name": "Trello account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "id": {
+          "__rl": true,
+          "value": "={{ $('Card Due').item.json.id }}",
+          "mode": "id"
+        }
+      },
+      "id": "2aee1981-0205-433d-837f-8218c536e246",
+      "name": "Trello2",
+      "type": "n8n-nodes-base.trello",
+      "typeVersion": 1,
+      "position": [
+        1760,
+        480
+      ],
+      "credentials": {
+        "trelloApi": {
+          "id": "HwrrZ2rmdMWD3klI",
+          "name": "Trello account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "dateTime": [
+            {
+              "value1": "={{ $json.badges.due }}",
+              "operation": "before",
+              "value2": "={{ $now.toISO() }}"
+            }
+          ]
+        }
+      },
+      "id": "84c8c255-d922-4d0a-b06a-249bf1eb5d7f",
+      "name": "Card Due",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        1480,
+        500
+      ]
+    }
+  ],
+  "pinData": {},
+  "settings": {},
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrencyRules": []
+    }
+  },
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2023-07-19T12:20:49.000Z",
+  "versionId": "3174dfcf-b527-4924-a9c7-fccfaf1f60ce"
+}
