@@ -63,7 +63,7 @@
           "interval": [
             {
               "field": "minutes",
-              "minutesInterval": 25
+              "minutesInterval": 10
             }
           ]
         }
@@ -204,6 +204,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2023-07-20T08:36:51.000Z",
-  "versionId": "1210e5e7-c7b4-4ce1-b1f4-94f3bf2e8ce8"
+  "updatedAt": "2023-07-20T11:47:36.000Z",
+  "versionId": "52016214-3aee-40d7-9056-a7b6be9ee3a0"
 }
