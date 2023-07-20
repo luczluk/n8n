@@ -62,7 +62,8 @@
         "rule": {
           "interval": [
             {
-              "field": "hours"
+              "field": "minutes",
+              "minutesInterval": 25
             }
           ]
         }
@@ -130,7 +131,7 @@
           "mode": "id"
         },
         "updateFields": {
-          "due": "={{ DateTime.now().plus({ hours: 8 }).toISO() }}"
+          "due": "={{ DateTime.now().plus({ minutes: 110 }).toISO() }}"
         }
       },
       "id": "3efe9b58-856e-423e-b2e6-168717733422",
@@ -203,6 +204,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2023-07-19T12:20:49.000Z",
-  "versionId": "3174dfcf-b527-4924-a9c7-fccfaf1f60ce"
+  "updatedAt": "2023-07-20T08:36:51.000Z",
+  "versionId": "1210e5e7-c7b4-4ce1-b1f4-94f3bf2e8ce8"
 }
