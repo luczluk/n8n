@@ -5,18 +5,7 @@
       "main": [
         [
           {
-            "node": "Set",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Set": {
-      "main": [
-        [
-          {
-            "node": "P3 & createCard",
+            "node": "Switch",
             "type": "main",
             "index": 0
           }
@@ -92,7 +81,50 @@
         ]
       ]
     },
-    "P3 & createCard": {
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Set title",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "No Operation, do nothing1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "No Operation, do nothing1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "No Operation, do nothing1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set title": {
+      "main": [
+        [
+          {
+            "node": "P3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "P3": {
       "main": [
         [
           {
@@ -101,6 +133,17 @@
             "index": 0
           }
         ],
+        [
+          {
+            "node": "Trello2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Trello2": {
+      "main": [
         [
           {
             "node": "No Operation, do nothing",
@@ -149,39 +192,13 @@
       "webhookId": "1e9f20e6-2f4e-47fd-bfd3-b0ffef014478"
     },
     {
-      "parameters": {
-        "keepOnlySet": true,
-        "values": {
-          "string": [
-            {
-              "name": "Value",
-              "value": "={{ $('POST').item.json.body.action.data.card.name.replace('Transportation Execution Product Team', 'TREX') }}"
-            },
-            {
-              "name": "Type",
-              "value": "={{ $json.body.action.type }}"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "6f2530da-e80a-4e51-9a48-0c772eb76eb7",
-      "name": "Set",
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 2,
-      "position": [
-        200,
-        180
-      ]
-    },
-    {
       "parameters": {},
       "id": "8dce50ba-b46f-43f1-acef-ba585922dc2f",
       "name": "No Operation, do nothing",
       "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
       "position": [
-        1780,
+        1840,
         420
       ]
     },
@@ -196,7 +213,7 @@
             },
             {
               "name": "message",
-              "value": "={{ $('Set').item.json.Value }}"
+              "value": "={{ $('Set title').item.json.Value }}"
             },
             {
               "name": "recipients",
@@ -211,7 +228,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 2,
       "position": [
-        920,
+        1140,
         40
       ]
     },
@@ -221,7 +238,7 @@
           "number": [
             {
               "value1": "={{$now.hour}}",
-              "value2": 17
+              "value2": 15
             },
             {
               "value1": "={{$now.hour}}",
@@ -236,7 +253,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 1,
       "position": [
-        640,
+        920,
         100
       ]
     },
@@ -250,7 +267,7 @@
       "type": "n8n-nodes-base.homeAssistant",
       "typeVersion": 1,
       "position": [
-        1140,
+        1360,
         40
       ],
       "credentials": {
@@ -290,7 +307,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        1640,
+        1860,
         20
       ],
       "credentials": {
@@ -316,8 +333,63 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 1,
       "position": [
-        1360,
+        1580,
         40
+      ]
+    },
+    {
+      "parameters": {
+        "dataType": "string",
+        "value1": "={{ $json.body.action.type }}",
+        "rules": {
+          "rules": [
+            {
+              "operation": "contains",
+              "value2": "createCard"
+            },
+            {
+              "operation": "contains",
+              "value2": "deleteCard",
+              "output": 2
+            },
+            {
+              "value2": "updateCard",
+              "output": 1
+            }
+          ]
+        },
+        "fallbackOutput": 3
+      },
+      "id": "0bca96e5-b965-4197-816c-a67e7a9d6506",
+      "name": "Switch",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 1,
+      "position": [
+        200,
+        180
+      ]
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "Value",
+              "value": "={{ $('POST').item.json.body.action.data.card.name.replace('Transportation Execution Product Team', 'TREX') }}"
+            },
+            {}
+          ]
+        },
+        "options": {}
+      },
+      "id": "6f2530da-e80a-4e51-9a48-0c772eb76eb7",
+      "name": "Set title",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        440,
+        120
       ]
     },
     {
@@ -328,22 +400,53 @@
               "value1": "={{ $json.Value }}",
               "operation": "contains",
               "value2": "P3 Incident"
-            },
-            {
-              "value1": "={{ $json.Type }}",
-              "value2": "createCard"
             }
           ]
         }
       },
       "id": "26a83771-7bc0-421c-b214-6d90860f23cc",
-      "name": "P3 & createCard",
+      "name": "P3",
       "type": "n8n-nodes-base.if",
       "typeVersion": 1,
       "position": [
-        400,
-        180
+        680,
+        120
       ]
+    },
+    {
+      "parameters": {},
+      "id": "5c98df8c-29cb-4f7b-a1d4-9a610c5520d1",
+      "name": "No Operation, do nothing1",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        540,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "id": {
+          "__rl": true,
+          "value": "={{ $('POST').item.json.body.action.data.card.id }}",
+          "mode": "id"
+        }
+      },
+      "id": "76a57d40-ca66-4c29-9b19-f4528c9cbf9d",
+      "name": "Trello2",
+      "type": "n8n-nodes-base.trello",
+      "typeVersion": 1,
+      "position": [
+        920,
+        300
+      ],
+      "credentials": {
+        "trelloApi": {
+          "id": "HwrrZ2rmdMWD3klI",
+          "name": "Trello account"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -351,6 +454,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 2,
-  "updatedAt": "2023-07-19T09:56:49.000Z",
-  "versionId": "94bdff51-ce26-478f-94f1-5b9c4e2f7473"
+  "updatedAt": "2023-07-24T13:44:00.000Z",
+  "versionId": "c305ced9-4e54-4a92-8239-35fa20c682a6"
 }
