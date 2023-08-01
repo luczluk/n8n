@@ -1,17 +1,6 @@
 {
   "active": true,
   "connections": {
-    "Gmail": {
-      "main": [
-        [
-          {
-            "node": "Dropbox",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Dropbox": {
       "main": [
         [
@@ -44,35 +33,23 @@
           }
         ]
       ]
+    },
+    "Gmail": {
+      "main": [
+        [
+          {
+            "node": "Dropbox",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2023-06-30T09:07:37.563Z",
   "id": "2",
   "name": "Usuń stare recepty",
   "nodes": [
-    {
-      "parameters": {
-        "resource": "message",
-        "operation": "getAll",
-        "additionalFields": {
-          "q": "label:recepta older_than:40d"
-        }
-      },
-      "name": "Gmail",
-      "type": "n8n-nodes-base.gmail",
-      "typeVersion": 1,
-      "position": [
-        860,
-        640
-      ],
-      "id": "e275798a-a76e-45ff-b14d-614db1f25eb2",
-      "credentials": {
-        "gmailOAuth2": {
-          "id": "2",
-          "name": "Gmail account"
-        }
-      }
-    },
     {
       "parameters": {
         "resource": "message",
@@ -158,6 +135,33 @@
           "name": "Pushover account"
         }
       }
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "limit": 10,
+        "simple": false,
+        "filters": {
+          "q": "label:recepta older_than:30d"
+        },
+        "options": {
+          "downloadAttachments": true
+        }
+      },
+      "id": "e8f80322-1750-44ee-a864-740377c46976",
+      "name": "Gmail",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2,
+      "position": [
+        880,
+        640
+      ],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "2",
+          "name": "Gmail account"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -165,6 +169,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2023-06-30T09:49:33.000Z",
-  "versionId": "6964e890-19e7-432a-b454-c787c9446f94"
+  "updatedAt": "2023-08-01T08:10:56.000Z",
+  "versionId": "4ea642f6-01bb-495f-b628-2236e669a1b8"
 }
