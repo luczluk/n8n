@@ -74,7 +74,7 @@
     {
       "parameters": {
         "authentication": "oAuth2",
-        "path": "=/Recepty/{{new Date().getYear()}}_{{new Date().getMonth()}}_{{new Date().getDay()}}_{{$node[\"Gmail\"].binary.attachment_0.fileName}}",
+        "path": "=/Recepty/{{$today.toFormat('yyyy_MM_dd')}}_{{new Date().getYear()}}_{{new Date().getMonth()}}_{{new Date().getDay()}}_{{$node[\"Gmail\"].binary.attachment_0.fileName}}",
         "binaryData": true,
         "binaryPropertyName": "=attachment_0"
       },
@@ -142,7 +142,7 @@
         "limit": 10,
         "simple": false,
         "filters": {
-          "q": "label:recepta older_than:30d"
+          "q": "label:recepta older_than:30d has:attachment "
         },
         "options": {
           "downloadAttachments": true
@@ -169,6 +169,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2023-08-01T08:10:56.000Z",
-  "versionId": "4ea642f6-01bb-495f-b628-2236e669a1b8"
+  "updatedAt": "2023-08-03T07:09:22.000Z",
+  "versionId": "986e4adf-3c99-4493-b4e1-b194ae5d85c4"
 }
