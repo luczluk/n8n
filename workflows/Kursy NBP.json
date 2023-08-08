@@ -73,6 +73,17 @@
           }
         ]
       ]
+    },
+    "Pushover": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2023-07-07T10:52:00.722Z",
@@ -117,7 +128,7 @@
         "priority": 0,
         "additionalFields": {
           "sound": "alien",
-          "title": "Kursy NBP 2"
+          "title": "Kursy NBP"
         }
       },
       "id": "5a66c75a-1aa9-4eec-844f-e998425837b9",
@@ -253,6 +264,32 @@
           "name": "Airtable account"
         }
       }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://n8n.it4home.pl/webhook/sms",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBasicAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n\"sender\": \"Kursy\",\n\"message\": \"{{ $('Przygotuj dane do wiadomosci').item.json['Nr tabeli'] }} USD {{ $('Przygotuj dane do wiadomosci').item.json.USD }} EUR {{ $('Przygotuj dane do wiadomosci').item.json.EUR }} CHF {{ $('Przygotuj dane do wiadomosci').item.json.CHF }}\",\n\"recipient\": \"48509245959\"\n}",
+        "options": {}
+      },
+      "id": "f6699fb9-740c-4143-8d03-a4585813bc04",
+      "name": "HTTP Request",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        1180,
+        280
+      ],
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "fusuykIPI8PjFSMx",
+          "name": "Basic auth to webhook"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -264,6 +301,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2023-07-10T09:54:43.000Z",
-  "versionId": "434f43d5-6d80-425f-a29d-e817d36b71c6"
+  "updatedAt": "2023-08-08T12:42:11.000Z",
+  "versionId": "8d0dfaa9-91bf-4076-bbc8-79169517b510"
 }
