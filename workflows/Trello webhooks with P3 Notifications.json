@@ -249,7 +249,7 @@
           "number": [
             {
               "value1": "={{$now.hour}}",
-              "value2": 18
+              "value2": 15
             },
             {
               "value1": "={{$now.hour}}",
@@ -491,6 +491,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 2,
-  "updatedAt": "2023-08-21T12:57:27.000Z",
-  "versionId": "d975ee70-ab16-4726-9db8-08ca4a295900"
+  "updatedAt": "2023-08-22T14:35:34.000Z",
+  "versionId": "71d823c8-d4b3-48ab-9287-de288d802492"
 }
