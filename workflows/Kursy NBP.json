@@ -88,6 +88,7 @@
   },
   "createdAt": "2023-07-07T10:52:00.722Z",
   "id": "5",
+  "meta": null,
   "name": "Kursy NBP",
   "nodes": [
     {
