@@ -95,6 +95,7 @@
   },
   "createdAt": "2023-06-30T08:07:32.768Z",
   "id": "1",
+  "meta": null,
   "name": "Pogoda",
   "nodes": [
     {
