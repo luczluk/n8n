@@ -26,6 +26,7 @@
   },
   "createdAt": "2023-07-10T09:42:57.104Z",
   "id": "kTUALZL38oDDli64",
+  "meta": null,
   "name": "Webhook for GatewayAPI",
   "nodes": [
     {
