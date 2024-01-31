@@ -167,7 +167,9 @@
   },
   "createdAt": "2023-07-11T11:35:59.819Z",
   "id": "L0XsDol4ma00cyET",
-  "meta": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
   "name": "Trello webhooks with P3 Notifications",
   "nodes": [
     {
@@ -411,7 +413,7 @@
             {
               "value1": "={{ $json.Value }}",
               "operation": "contains",
-              "value2": "P3 Incident"
+              "value2": "Opsgenie Alert"
             }
           ]
         }
@@ -492,6 +494,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 2,
-  "updatedAt": "2023-08-22T14:35:34.000Z",
-  "versionId": "71d823c8-d4b3-48ab-9287-de288d802492"
+  "updatedAt": "2024-01-31T12:49:24.000Z",
+  "versionId": "5fdd3d52-4623-4a2e-afa8-b5e965d66b19"
 }
