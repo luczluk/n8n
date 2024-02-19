@@ -95,7 +95,9 @@
   },
   "createdAt": "2023-06-30T08:07:32.768Z",
   "id": "1",
-  "meta": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
   "name": "Pogoda",
   "nodes": [
     {
@@ -131,7 +133,7 @@
     },
     {
       "parameters": {
-        "jsCode": "\nclass nowyElement \n{\n    constructor(data, main, temp, feels_like, pressure, wind, pop, rain, description)\n    {    \n        this.data = data;\n        this.main = `${(main + '      ').substring(0,5)}`;\n        this.description = description;\n        this.temp = temp;\n        this.feels_like = feels_like.toFixed(0);\n        this.pressure = pressure;\n        this.wind = wind.toFixed(0);\n        this.pop = `${(pop * 100).toFixed(0)}%`;\n        this.rain = `${ rain === undefined ? 0 : (rain[\"1h\"] * 100).toFixed(0) }`;\n        this.message = this.getMessage();\n    }\n    getMessage()\n    {\n        let rain = `${ this.rain > 0 ? `RAIN ${this.rain} !!!  ` : `` }`;\n        let prefix = `${ this.rain > 0 ? ` => ` : `` }`;\n        return `${ prefix }${ this.data } ${ this.main } T:${ this.temp } od:${ this.feels_like } ${this.pressure} ${this.wind}km/h POP:${this.pop} ${rain}<BR>`;        \n    }\n}\nconst newItems = [];\nconst timezoneOffset = items[0].json.timezone_offset;\nlet output = '';\nlet howMany = 0;\nfor (itema of items[0].json.hourly) \n{\n    howMany = howMany + 1;\n    if(howMany > 15) { break;}\n    var date = new Date((itema.dt + timezoneOffset) * 1000);\n    var hours = date.getHours();\n    var minutes = \"0\" + date.getMinutes();\n    \n    // Will display time in 10:30:23 format\n    var formattedTime = hours + ':' + minutes.substr(-2);   // + ':' + seconds.substr(-2);\n    itema.Date = formattedTime;\n    \n    // constructor(data, main, feels_like, pressure, wind, pop, rain, description)\n    let newItem = new nowyElement(itema.Date, itema.weather[0].main, itema.temp, itema.feels_like, itema.pressure, itema.wind_speed, itema.pop, itema.rain, itema.weather[0].description)                 \n        \n    output = output + newItem.getMessage();\n}\n\nnewItems.push(\n    {\n        json: {\n            messages: output.replace(/<BR>/g, '\\n'),\n            messageHtml: output\n        }\n    }\n);\nreturn newItems;"
+        "jsCode": "\nclass nowyElement \n{\n    constructor(data, main, temp, feels_like, pressure, wind, pop, rain, description)\n    {    \n        this.data = data;\n        this.main = `${(main + '      ').substring(0,5)}`;\n        this.description = description;\n        this.temp = temp;\n        this.feels_like = feels_like.toFixed(0);\n        this.pressure = pressure;\n        this.wind = wind.toFixed(0);\n        this.pop = `${(pop * 100).toFixed(0)}%`;\n        this.rain = `${ rain === undefined ? 0 : (rain[\"1h\"] * 100).toFixed(0) }`;\n        this.message = this.getMessage();\n    }\n    getMessage()\n    {\n        let rain = `${ this.rain > 0 ? `RAIN ${this.rain} !!!  ` : `` }`;\n        let prefix = `${ this.rain > 0 ? ` => ` : `` }`;\n        return `${ prefix }${ this.data } ${ this.main } T:${ this.temp } od:${ this.feels_like } ${this.pressure} ${this.wind}km/h POP:${this.pop} ${rain}<BR>`;        \n    }\n}\nconst newItems = [];\nconst timezoneOffset = items[0].json.timezone_offset;\nlet output = '';\nlet howMany = 0;\nfor (itema of items[0].json.hourly) \n{\n    howMany = howMany + 1;\n    if(howMany > 15) { break;}\n    var date = new Date((itema.dt + timezoneOffset) * 1000);\n    var hours = date.getHours();\n    var minutes = \"0\" + date.getMinutes();\n    \n    // Will display time in 10:30:23 format\n    var formattedTime = hours + ':' + minutes.substr(-2);   // + ':' + seconds.substr(-2);\n    itema.Date = formattedTime;\n    \n    // constructor(data, main, feels_like, pressure, wind, pop, rain, description)\n    let newItem = new nowyElement(itema.Date, itema.weather[0].main, itema.temp, itema.feels_like, itema.pressure, itema.wind_speed, itema.pop, itema.rain, itema.weather[0].description)                 \n        \n    output = output + newItem.getMessage();\n}\n\n// Add Sunrise and Sunset details\nvar dlugoscDnia = items[0].json.current.sunset - items[0].json.current.sunrise - timezoneOffset;\noutput = output + \"Sunrise: \" + getNiceTime(items[0].json.current.sunrise) + \" Sunset: \" + getNiceTime(items[0].json.current.sunset) + \" - \" + getNiceTime(dlugoscDnia);\n\nnewItems.push(\n    {\n        json: {\n            messages: output.replace(/<BR>/g, '\\n'),\n            messageHtml: output\n        }\n    }\n);\nreturn newItems;\n\n\nfunction getNiceTime(badtime){\n  var date = new Date((badtime + timezoneOffset) * 1000);\n  var hours = \"0\" + date.getHours();\n  var minutes = \"0\" + date.getMinutes();\n  var seconds = \"0\" + date.getSeconds();\n  // Will display time in 10:30:23 format\n  var formattedTime = hours.substr(-2) + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);\n  return formattedTime;\n}"
       },
       "id": "08be2ba7-ecec-401f-9218-40c929235e00",
       "name": "Code1",
@@ -285,6 +287,6 @@
   },
   "tags": [],
   "triggerCount": 2,
-  "updatedAt": "2023-06-30T13:25:17.000Z",
-  "versionId": "5bed2b45-8645-47a7-b2f0-71f1410a05fa"
+  "updatedAt": "2024-02-19T13:48:37.000Z",
+  "versionId": "e4a33dab-a5cb-4a7a-8858-3508b7d168ac"
 }
