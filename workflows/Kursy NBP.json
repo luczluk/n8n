@@ -88,7 +88,9 @@
   },
   "createdAt": "2023-07-07T10:52:00.722Z",
   "id": "5",
-  "meta": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
   "name": "Kursy NBP",
   "nodes": [
     {
@@ -149,6 +151,7 @@
     },
     {
       "parameters": {
+        "authentication": "airtableOAuth2Api",
         "operation": "list",
         "application": {
           "__rl": true,
@@ -175,9 +178,9 @@
         380
       ],
       "credentials": {
-        "airtableApi": {
-          "id": "7",
-          "name": "Airtable account"
+        "airtableOAuth2Api": {
+          "id": "eXM9xuoteFee24Jw",
+          "name": "Airtable account 2"
         }
       }
     },
@@ -231,6 +234,7 @@
     },
     {
       "parameters": {
+        "authentication": "airtableOAuth2Api",
         "operation": "update",
         "application": {
           "__rl": true,
@@ -260,9 +264,9 @@
         280
       ],
       "credentials": {
-        "airtableApi": {
-          "id": "7",
-          "name": "Airtable account"
+        "airtableOAuth2Api": {
+          "id": "eXM9xuoteFee24Jw",
+          "name": "Airtable account 2"
         }
       }
     },
@@ -302,6 +306,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2023-08-21T09:47:17.000Z",
-  "versionId": "b1611906-d560-4ecb-b22e-1cdd1f1c7f5d"
+  "updatedAt": "2024-03-06T12:00:27.000Z",
+  "versionId": "d307a6c0-f3db-41da-af51-85cb461f6275"
 }
