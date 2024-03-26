@@ -124,24 +124,6 @@
         ]
       ]
     },
-    "P3": {
-      "main": [
-        [
-          {
-            "node": "Shift time 7-15",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Trello2",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Trello2": {
       "main": [
         [
@@ -158,6 +140,42 @@
         [
           {
             "node": "Pushover",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "P3": {
+      "main": [
+        [
+          {
+            "node": "Shift time 7-15",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "GITHUB",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GITHUB": {
+      "main": [
+        [
+          {
+            "node": "Set title1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Trello2",
             "type": "main",
             "index": 0
           }
@@ -243,7 +261,7 @@
       "typeVersion": 2,
       "position": [
         1020,
-        40
+        -60
       ]
     },
     {
@@ -268,7 +286,7 @@
       "typeVersion": 1,
       "position": [
         800,
-        100
+        -40
       ]
     },
     {
@@ -281,8 +299,8 @@
       "type": "n8n-nodes-base.homeAssistant",
       "typeVersion": 1,
       "position": [
-        1180,
-        40
+        1220,
+        -60
       ],
       "credentials": {
         "homeAssistantApi": {
@@ -321,8 +339,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        1520,
-        20
+        1560,
+        -80
       ],
       "credentials": {
         "httpBasicAuth": {
@@ -347,8 +365,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 1,
       "position": [
-        1340,
-        40
+        1360,
+        -60
       ]
     },
     {
@@ -407,27 +425,6 @@
       ]
     },
     {
-      "parameters": {
-        "conditions": {
-          "string": [
-            {
-              "value1": "={{ $json.Value }}",
-              "operation": "contains",
-              "value2": "Opsgenie Alert"
-            }
-          ]
-        }
-      },
-      "id": "26a83771-7bc0-421c-b214-6d90860f23cc",
-      "name": "P3",
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 1,
-      "position": [
-        600,
-        120
-      ]
-    },
-    {
       "parameters": {},
       "id": "5c98df8c-29cb-4f7b-a1d4-9a610c5520d1",
       "name": "No Operation, do nothing1",
@@ -452,7 +449,7 @@
       "type": "n8n-nodes-base.trello",
       "typeVersion": 1,
       "position": [
-        920,
+        1140,
         300
       ],
       "credentials": {
@@ -478,8 +475,8 @@
       "type": "n8n-nodes-base.pushover",
       "typeVersion": 1,
       "position": [
-        1720,
-        20
+        1760,
+        -80
       ],
       "credentials": {
         "pushoverApi": {
@@ -487,6 +484,73 @@
           "name": "Pushover account"
         }
       }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.Value }}",
+              "operation": "contains",
+              "value2": "Opsgenie Alert"
+            }
+          ]
+        },
+        "combineOperation": "any"
+      },
+      "id": "26a83771-7bc0-421c-b214-6d90860f23cc",
+      "name": "P3",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        620,
+        -20
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $('P3').item.json.Value }}",
+              "operation": "contains",
+              "value2": "GITHUB"
+            }
+          ]
+        },
+        "combineOperation": "any"
+      },
+      "id": "c177de23-88fb-44f4-b294-0607ca2d088e",
+      "name": "GITHUB",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        800,
+        140
+      ]
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "Value",
+              "value": "={{ $('POST').item.json.body.action.data.card.name.replace('Transportation Execution Product Team', 'TREX') }}"
+            },
+            {}
+          ]
+        },
+        "options": {}
+      },
+      "id": "9e50969b-c2f7-446a-a58f-398f8093bddd",
+      "name": "Set title1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        1040,
+        120
+      ]
     }
   ],
   "pinData": {},
@@ -494,6 +558,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 2,
-  "updatedAt": "2024-01-31T12:49:24.000Z",
-  "versionId": "5fdd3d52-4623-4a2e-afa8-b5e965d66b19"
+  "updatedAt": "2024-03-26T12:07:54.000Z",
+  "versionId": "c1e3d6d0-a973-46fe-a56a-634156ee0e8d"
 }
