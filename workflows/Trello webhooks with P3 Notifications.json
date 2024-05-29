@@ -1,17 +1,6 @@
 {
   "active": true,
   "connections": {
-    "POST": {
-      "main": [
-        [
-          {
-            "node": "Switch",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "HttpRequestBody": {
       "main": [
         [
@@ -68,6 +57,11 @@
         [
           {
             "node": "Send SMS",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Home Assistant1",
             "type": "main",
             "index": 0
           }
@@ -181,6 +175,39 @@
           }
         ]
       ]
+    },
+    "Pushover": {
+      "main": [
+        [
+          {
+            "node": "No Operation, do nothing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Home Assistant1": {
+      "main": [
+        [
+          {
+            "node": "No Operation, do nothing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "POST": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2023-07-11T11:35:59.819Z",
@@ -190,23 +217,6 @@
   },
   "name": "Trello webhooks with P3 Notifications",
   "nodes": [
-    {
-      "parameters": {
-        "httpMethod": "POST",
-        "path": "trello",
-        "responseMode": "lastNode",
-        "options": {}
-      },
-      "id": "e47d081a-283c-4118-9ee6-32e587050fd6",
-      "name": "POST",
-      "type": "n8n-nodes-base.webhook",
-      "typeVersion": 1,
-      "position": [
-        0,
-        180
-      ],
-      "webhookId": "41e5098e-3b2f-44ee-b5d3-fda7d2b4a8b1"
-    },
     {
       "parameters": {
         "httpMethod": "HEAD",
@@ -230,8 +240,8 @@
       "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
       "position": [
-        1840,
-        420
+        1960,
+        400
       ]
     },
     {
@@ -475,7 +485,7 @@
       "type": "n8n-nodes-base.pushover",
       "typeVersion": 1,
       "position": [
-        1760,
+        1720,
         -80
       ],
       "credentials": {
@@ -551,6 +561,45 @@
         1040,
         120
       ]
+    },
+    {
+      "parameters": {
+        "resource": "state",
+        "operation": "upsert",
+        "entityId": "binary_sensor.blitzwolf_plug_1_update_available",
+        "state": "turn_on"
+      },
+      "id": "0cd024dc-696c-41f2-9b62-3636a704b799",
+      "name": "Home Assistant1",
+      "type": "n8n-nodes-base.homeAssistant",
+      "typeVersion": 1,
+      "position": [
+        1560,
+        -240
+      ],
+      "credentials": {
+        "homeAssistantApi": {
+          "id": "fm6tVdL9LCuCE8lq",
+          "name": "Home Assistant account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "trello",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "id": "e47d081a-283c-4118-9ee6-32e587050fd6",
+      "name": "POST",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        0,
+        180
+      ],
+      "webhookId": "41e5098e-3b2f-44ee-b5d3-fda7d2b4a8b1"
     }
   ],
   "pinData": {},
@@ -558,6 +607,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 2,
-  "updatedAt": "2024-03-26T12:07:54.000Z",
-  "versionId": "c1e3d6d0-a973-46fe-a56a-634156ee0e8d"
+  "updatedAt": "2024-05-29T15:14:45.000Z",
+  "versionId": "79a611e7-af8b-418e-b22a-dc0e33fde8d1"
 }
