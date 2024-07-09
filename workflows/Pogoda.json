@@ -19,6 +19,11 @@
             "node": "IF",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "Aktualizuj nr tabeli nbp",
+            "type": "main",
+            "index": 0
           }
         ]
       ]
@@ -91,6 +96,11 @@
           }
         ]
       ]
+    },
+    "Pushover": {
+      "main": [
+        []
+      ]
     }
   },
   "createdAt": "2023-06-30T08:07:32.768Z",
@@ -127,13 +137,13 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1,
       "position": [
-        900,
-        280
+        960,
+        200
       ]
     },
     {
       "parameters": {
-        "jsCode": "\nclass nowyElement \n{\n    constructor(data, main, temp, feels_like, pressure, wind, pop, rain, description)\n    {    \n        this.data = data;\n        this.main = `${(main + '      ').substring(0,5)}`;\n        this.description = description;\n        this.temp = temp;\n        this.feels_like = feels_like.toFixed(0);\n        this.pressure = pressure;\n        this.wind = wind.toFixed(0);\n        this.pop = `${(pop * 100).toFixed(0)}%`;\n        this.rain = `${ rain === undefined ? 0 : (rain[\"1h\"] * 100).toFixed(0) }`;\n        this.message = this.getMessage();\n    }\n    getMessage()\n    {\n        let rain = `${ this.rain > 0 ? `RAIN ${this.rain} !!!  ` : `` }`;\n        let prefix = `${ this.rain > 0 ? ` => ` : `` }`;\n        return `${ prefix }${ this.data } ${ this.main } T:${ this.temp } od:${ this.feels_like } ${this.pressure} ${this.wind}km/h POP:${this.pop} ${rain}<BR>`;        \n    }\n}\nconst newItems = [];\nconst timezoneOffset = items[0].json.timezone_offset;\nlet output = '';\nlet howMany = 0;\nfor (itema of items[0].json.hourly) \n{\n    howMany = howMany + 1;\n    if(howMany > 15) { break;}\n    var date = new Date((itema.dt + timezoneOffset) * 1000);\n    var hours = date.getHours();\n    var minutes = \"0\" + date.getMinutes();\n    \n    // Will display time in 10:30:23 format\n    var formattedTime = hours + ':' + minutes.substr(-2);   // + ':' + seconds.substr(-2);\n    itema.Date = formattedTime;\n    \n    // constructor(data, main, feels_like, pressure, wind, pop, rain, description)\n    let newItem = new nowyElement(itema.Date, itema.weather[0].main, itema.temp, itema.feels_like, itema.pressure, itema.wind_speed, itema.pop, itema.rain, itema.weather[0].description)                 \n        \n    output = output + newItem.getMessage();\n}\n\n// Add Sunrise and Sunset details\nvar dlugoscDnia = items[0].json.current.sunset - items[0].json.current.sunrise - timezoneOffset;\noutput = output + \"Sunrise: \" + getNiceTime(items[0].json.current.sunrise) + \" Sunset: \" + getNiceTime(items[0].json.current.sunset) + \" - \" + getNiceTime(dlugoscDnia);\n\nnewItems.push(\n    {\n        json: {\n            messages: output.replace(/<BR>/g, '\\n'),\n            messageHtml: output\n        }\n    }\n);\nreturn newItems;\n\n\nfunction getNiceTime(badtime){\n  var date = new Date((badtime + timezoneOffset) * 1000);\n  var hours = \"0\" + date.getHours();\n  var minutes = \"0\" + date.getMinutes();\n  var seconds = \"0\" + date.getSeconds();\n  // Will display time in 10:30:23 format\n  var formattedTime = hours.substr(-2) + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);\n  return formattedTime;\n}"
+        "jsCode": "\nclass nowyElement \n{\n    constructor(data, main, temp, feels_like, pressure, wind, pop, rain, description)\n    {    \n        this.data = data;\n        this.main = `${(main + '      ').substring(0,5)}`;\n        this.description = description;\n        this.temp = temp;\n        this.feels_like = feels_like.toFixed(0);\n        this.pressure = pressure;\n        this.wind = wind.toFixed(0);\n        this.pop = `${(pop * 100).toFixed(0)}%`;\n        this.rain = `${ rain === undefined ? 0 : (rain[\"1h\"] * 100).toFixed(0) }`;\n        this.message = this.getMessage();\n    }\n    getMessage()\n    {\n        let rain = `${ this.rain > 0 ? `RAIN ${this.rain} !!!  ` : `` }`;\n        let prefix = `${ this.rain > 0 ? ` => ` : `` }`;\n        return `${ prefix }${ this.data } ${ this.main } T:${ this.temp } od:${ this.feels_like } ${this.pressure} ${this.wind}km/h POP:${this.pop} ${rain}<BR>`;        \n    }\n}\nconst newItems = [];\nconst timezoneOffset = items[0].json.timezone_offset;\nlet output = '';\nlet howMany = 0;\nfor (itema of items[0].json.hourly) \n{\n    howMany = howMany + 1;\n    if(howMany > 15) { break;}\n    var date = new Date((itema.dt + timezoneOffset) * 1000);\n    var hours = date.getHours();\n    var minutes = \"0\" + date.getMinutes();\n    \n    // Will display time in 10:30:23 format\n    var formattedTime = hours + ':' + minutes.substr(-2);   // + ':' + seconds.substr(-2);\n    itema.Date = formattedTime;\n    \n    // constructor(data, main, feels_like, pressure, wind, pop, rain, description)\n    let newItem = new nowyElement(itema.Date, itema.weather[0].main, itema.temp, itema.feels_like, itema.pressure, itema.wind_speed, itema.pop, itema.rain, itema.weather[0].description)                 \n        \n    output = output + newItem.getMessage();\n}\n\n// Add Sunrise and Sunset details\nvar dlugoscDnia = items[0].json.current.sunset - items[0].json.current.sunrise - timezoneOffset;\n\nvar SunRise = getNiceTime(items[0].json.current.sunrise);\nvar SunSet = getNiceTime(items[0].json.current.sunset);\nvar DlDnia = getNiceTime(dlugoscDnia);\noutput = output + \"Sunrise: \" + SunRise + \" Sunset: \" + SunSet + \" - \" + DlDnia;\nvar ladnaData = getNiceDateTime(items[0].json.current.dt)\nnewItems.push(\n    {\n        json: {\n            messages: output.replace(/<BR>/g, '\\n'),\n            messageHtml: output,\n            SunRise: SunRise,\n            SunSet: SunSet,\n            DlDnia: DlDnia,\n            Date: ladnaData\n        }\n    }\n);\nreturn newItems;\n\n\nfunction getNiceTime(badtime){\n  var date = new Date((badtime + timezoneOffset) * 1000);\n  var hours = \"0\" + date.getHours();\n  var minutes = \"0\" + date.getMinutes();\n  var seconds = \"0\" + date.getSeconds();\n  // Will display time in 10:30:23 format\n  var formattedTime = hours.substr(-2) + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);\n  return formattedTime;\n}\n\nfunction getNiceDateTime(badtime){\n  var date = new Date((badtime) * 1000);\n    return date.toISOString();\n}\n"
       },
       "id": "08be2ba7-ecec-401f-9218-40c929235e00",
       "name": "Code1",
@@ -174,8 +184,8 @@
       "type": "n8n-nodes-base.pushover",
       "typeVersion": 1,
       "position": [
-        900,
-        460
+        960,
+        380
       ],
       "credentials": {
         "pushoverApi": {
@@ -200,8 +210,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 1,
       "position": [
-        640,
-        360
+        700,
+        280
       ]
     },
     {
@@ -253,8 +263,8 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1,
       "position": [
-        120,
-        540
+        200,
+        560
       ]
     },
     {
@@ -276,6 +286,43 @@
         -80,
         500
       ]
+    },
+    {
+      "parameters": {
+        "authentication": "airtableOAuth2Api",
+        "operation": "append",
+        "application": {
+          "__rl": true,
+          "value": "appZ36VRH8PFgp2u8",
+          "mode": "id"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblOS4JFchxsa5WVO",
+          "mode": "id"
+        },
+        "addAllFields": false,
+        "fields": [
+          "=SunRise",
+          "=SunSet",
+          "=DlDnia"
+        ],
+        "options": {}
+      },
+      "id": "2a248b5b-dbd6-4f60-9515-69641132c939",
+      "name": "Aktualizuj nr tabeli nbp",
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 1,
+      "position": [
+        960,
+        580
+      ],
+      "credentials": {
+        "airtableOAuth2Api": {
+          "id": "eXM9xuoteFee24Jw",
+          "name": "Airtable account"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -287,6 +334,6 @@
   },
   "tags": [],
   "triggerCount": 2,
-  "updatedAt": "2024-02-19T13:48:37.000Z",
-  "versionId": "e4a33dab-a5cb-4a7a-8858-3508b7d168ac"
+  "updatedAt": "2024-07-09T08:54:14.000Z",
+  "versionId": "f8d3496c-e49d-4d7a-8649-a063d3cc7f7a"
 }
