@@ -21,7 +21,7 @@
             "index": 0
           },
           {
-            "node": "Aktualizuj nr tabeli nbp",
+            "node": "Airtable",
             "type": "main",
             "index": 0
           }
@@ -97,9 +97,27 @@
         ]
       ]
     },
-    "Pushover": {
+    "Airtable": {
       "main": [
-        []
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Airtable1",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     }
   },
@@ -290,32 +308,179 @@
     {
       "parameters": {
         "authentication": "airtableOAuth2Api",
-        "operation": "append",
-        "application": {
+        "operation": "search",
+        "base": {
           "__rl": true,
           "value": "appZ36VRH8PFgp2u8",
-          "mode": "id"
+          "mode": "list",
+          "cachedResultName": "n8n",
+          "cachedResultUrl": "https://airtable.com/appZ36VRH8PFgp2u8"
         },
         "table": {
           "__rl": true,
           "value": "tblOS4JFchxsa5WVO",
-          "mode": "id"
+          "mode": "list",
+          "cachedResultName": "SunSet",
+          "cachedResultUrl": "https://airtable.com/appZ36VRH8PFgp2u8/tblOS4JFchxsa5WVO"
         },
-        "addAllFields": false,
-        "fields": [
-          "=SunRise",
-          "=SunSet",
-          "=DlDnia"
-        ],
+        "filterByFormula": "=LEFT({Date}, 10) = '{{ $json.Date.slice(0,10) }}'",
+        "returnAll": false,
+        "limit": 1,
         "options": {}
       },
-      "id": "2a248b5b-dbd6-4f60-9515-69641132c939",
-      "name": "Aktualizuj nr tabeli nbp",
+      "id": "cad8af5c-b798-45a1-94df-98a725ca716d",
+      "name": "Airtable",
       "type": "n8n-nodes-base.airtable",
-      "typeVersion": 1,
+      "typeVersion": 2.1,
       "position": [
-        960,
+        600,
         580
+      ],
+      "credentials": {
+        "airtableOAuth2Api": {
+          "id": "eXM9xuoteFee24Jw",
+          "name": "Airtable account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "a2125e20-b719-4ca8-9856-8eb5c234cc8b",
+              "leftValue": "={{ $json.id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "547064a7-3b4e-4219-8301-e1f8f2f4cd3d",
+      "name": "If",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        760,
+        580
+      ],
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "authentication": "airtableOAuth2Api",
+        "operation": "create",
+        "base": {
+          "__rl": true,
+          "value": "appZ36VRH8PFgp2u8",
+          "mode": "list",
+          "cachedResultName": "n8n",
+          "cachedResultUrl": "https://airtable.com/appZ36VRH8PFgp2u8"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblOS4JFchxsa5WVO",
+          "mode": "list",
+          "cachedResultName": "SunSet",
+          "cachedResultUrl": "https://airtable.com/appZ36VRH8PFgp2u8/tblOS4JFchxsa5WVO"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "SunRise": "={{ $('Code1').item.json.SunRise }}",
+            "DlDnia": "={{ $('Code1').item.json.DlDnia }}",
+            "SunSet": "={{ $('Code1').item.json.SunSet }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "ID",
+              "displayName": "ID",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "Date",
+              "displayName": "Date",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "SunRise",
+              "displayName": "SunRise",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "SunSet",
+              "displayName": "SunSet",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "DlDnia",
+              "displayName": "DlDnia",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Calculation",
+              "displayName": "Calculation",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "6ecd5e00-2ae4-4243-99de-c401f83b165e",
+      "name": "Airtable1",
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        1040,
+        600
       ],
       "credentials": {
         "airtableOAuth2Api": {
@@ -334,6 +499,6 @@
   },
   "tags": [],
   "triggerCount": 2,
-  "updatedAt": "2024-07-09T08:54:14.000Z",
-  "versionId": "f8d3496c-e49d-4d7a-8649-a063d3cc7f7a"
+  "updatedAt": "2024-07-15T09:59:42.000Z",
+  "versionId": "25f9d64c-0482-4042-a15c-407924217c05"
 }
