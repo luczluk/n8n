@@ -64,6 +64,11 @@
             "node": "Home Assistant1",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "Pushover",
+            "type": "main",
+            "index": 0
           }
         ],
         [
@@ -131,13 +136,7 @@
     },
     "Send SMS": {
       "main": [
-        [
-          {
-            "node": "Pushover",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "P3": {
@@ -349,8 +348,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        1560,
-        -80
+        1660,
+        -200
       ],
       "credentials": {
         "httpBasicAuth": {
@@ -485,8 +484,8 @@
       "type": "n8n-nodes-base.pushover",
       "typeVersion": 1,
       "position": [
-        1720,
-        -80
+        1660,
+        -40
       ],
       "credentials": {
         "pushoverApi": {
@@ -574,8 +573,8 @@
       "type": "n8n-nodes-base.homeAssistant",
       "typeVersion": 1,
       "position": [
-        1560,
-        -240
+        1660,
+        -360
       ],
       "credentials": {
         "homeAssistantApi": {
@@ -607,6 +606,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 2,
-  "updatedAt": "2024-05-29T15:14:45.000Z",
-  "versionId": "79a611e7-af8b-418e-b22a-dc0e33fde8d1"
+  "updatedAt": "2024-08-29T07:17:14.000Z",
+  "versionId": "d5322b97-20d4-4bd8-892d-f550662f5ae5"
 }
