@@ -61,12 +61,17 @@
             "index": 0
           },
           {
-            "node": "Home Assistant1",
+            "node": "Pushover",
             "type": "main",
             "index": 0
           },
           {
-            "node": "Pushover",
+            "node": "No Operation, do nothing",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Home Assistant2",
             "type": "main",
             "index": 0
           }
@@ -181,17 +186,6 @@
         ]
       ]
     },
-    "Home Assistant1": {
-      "main": [
-        [
-          {
-            "node": "No Operation, do nothing",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "POST": {
       "main": [
         [
@@ -203,11 +197,11 @@
         ]
       ]
     },
-    "When clicking ‘Test workflow’": {
+    "Home Assistant2": {
       "main": [
         [
           {
-            "node": "Home Assistant1",
+            "node": "No Operation, do nothing",
             "type": "main",
             "index": 0
           }
@@ -569,36 +563,6 @@
     },
     {
       "parameters": {
-        "resource": "service",
-        "operation": "call",
-        "domain": "switch",
-        "service": "turn_on",
-        "serviceAttributes": {
-          "attributes": [
-            {
-              "name": "entity_id",
-              "value": "switch.sonoff_1000690263"
-            }
-          ]
-        }
-      },
-      "id": "0cd024dc-696c-41f2-9b62-3636a704b799",
-      "name": "Home Assistant1",
-      "type": "n8n-nodes-base.homeAssistant",
-      "typeVersion": 1,
-      "position": [
-        1660,
-        -360
-      ],
-      "credentials": {
-        "homeAssistantApi": {
-          "id": "fm6tVdL9LCuCE8lq",
-          "name": "Home Assistant account"
-        }
-      }
-    },
-    {
-      "parameters": {
         "httpMethod": "POST",
         "path": "trello",
         "responseMode": "lastNode",
@@ -615,15 +579,34 @@
       "webhookId": "41e5098e-3b2f-44ee-b5d3-fda7d2b4a8b1"
     },
     {
-      "parameters": {},
-      "id": "3eaad2c5-b877-4a9d-a407-81c0dffa2e39",
-      "name": "When clicking ‘Test workflow’",
-      "type": "n8n-nodes-base.manualTrigger",
+      "parameters": {
+        "resource": "service",
+        "operation": "call",
+        "domain": "switch",
+        "service": "turn_on",
+        "serviceAttributes": {
+          "attributes": [
+            {
+              "name": "entity_id",
+              "value": "switch.blitzwolf_plug_1"
+            }
+          ]
+        }
+      },
+      "id": "8e823cfe-2bc2-4958-b399-153aa162ff7d",
+      "name": "Home Assistant2",
+      "type": "n8n-nodes-base.homeAssistant",
       "typeVersion": 1,
       "position": [
-        1180,
-        -340
-      ]
+        1660,
+        -360
+      ],
+      "credentials": {
+        "homeAssistantApi": {
+          "id": "fm6tVdL9LCuCE8lq",
+          "name": "Home Assistant account"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -631,6 +614,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 2,
-  "updatedAt": "2024-09-09T09:42:01.000Z",
-  "versionId": "7985f3cb-0b5b-4fc0-a6ac-04b78c017ef3"
+  "updatedAt": "2024-09-09T14:41:54.000Z",
+  "versionId": "35632380-7ed4-4033-8aa8-4c63109d0aea"
 }
