@@ -134,11 +134,6 @@
         ]
       ]
     },
-    "Send SMS": {
-      "main": [
-        []
-      ]
-    },
     "P3": {
       "main": [
         [
@@ -202,6 +197,17 @@
         [
           {
             "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "Home Assistant1",
             "type": "main",
             "index": 0
           }
@@ -563,10 +569,18 @@
     },
     {
       "parameters": {
-        "resource": "state",
-        "operation": "upsert",
-        "entityId": "binary_sensor.blitzwolf_plug_1_update_available",
-        "state": "turn_on"
+        "resource": "service",
+        "operation": "call",
+        "domain": "switch",
+        "service": "turn_on",
+        "serviceAttributes": {
+          "attributes": [
+            {
+              "name": "entity_id",
+              "value": "switch.sonoff_1000690263"
+            }
+          ]
+        }
       },
       "id": "0cd024dc-696c-41f2-9b62-3636a704b799",
       "name": "Home Assistant1",
@@ -599,6 +613,17 @@
         180
       ],
       "webhookId": "41e5098e-3b2f-44ee-b5d3-fda7d2b4a8b1"
+    },
+    {
+      "parameters": {},
+      "id": "3eaad2c5-b877-4a9d-a407-81c0dffa2e39",
+      "name": "When clicking ‘Test workflow’",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        1180,
+        -340
+      ]
     }
   ],
   "pinData": {},
@@ -606,6 +631,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 2,
-  "updatedAt": "2024-08-29T07:17:14.000Z",
-  "versionId": "d5322b97-20d4-4bd8-892d-f550662f5ae5"
+  "updatedAt": "2024-09-09T09:42:01.000Z",
+  "versionId": "7985f3cb-0b5b-4fc0-a6ac-04b78c017ef3"
 }
