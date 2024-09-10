@@ -1,0 +1,131 @@
+{
+  "active": false,
+  "connections": {
+    "GET E-Doreczenie": {
+      "main": [
+        [
+          {
+            "node": "Pushover1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Pushover1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Pushover1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Pushover1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Pushover1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Pushover1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2024-09-10T08:32:41.475Z",
+  "id": "gFBO8lPV9cbS0WkQ",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "E-Doreczenia WebHooks",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "9373ca7b-1a3b-4e26-910f-9ec4ed6da26a",
+      "name": "When clicking ‘Test workflow’",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        560,
+        220
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "userKey": "udbkdo9yvaps1khkce78ogwwro4veo",
+        "message": "={{ $json.body.toJsonString() }}",
+        "priority": 0,
+        "additionalFields": {
+          "sound": "alien",
+          "title": "E-Doreczenia"
+        }
+      },
+      "id": "11d41be3-a24f-49eb-9308-abdfbb4cfd28",
+      "name": "Pushover1",
+      "type": "n8n-nodes-base.pushover",
+      "typeVersion": 1,
+      "position": [
+        780,
+        480
+      ],
+      "credentials": {
+        "pushoverApi": {
+          "id": "1",
+          "name": "Pushover account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "multipleMethods": true,
+        "httpMethod": [
+          "GET",
+          "POST",
+          "HEAD",
+          "PUT",
+          "PATCH",
+          "DELETE"
+        ],
+        "path": "edoreczeniamessagecallback",
+        "responseMode": "lastNode",
+        "responseData": "noData",
+        "options": {}
+      },
+      "id": "4369c955-3fc7-404f-b61a-32fae701e64d",
+      "name": "GET E-Doreczenie",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        460,
+        480
+      ],
+      "webhookId": "0cc0f7b4-7d83-4e09-a4cb-b7d400289a5d",
+      "notesInFlow": true
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2024-09-10T10:06:43.000Z",
+  "versionId": "e8448171-c81e-4727-9901-4473d0c9a65f"
+}
