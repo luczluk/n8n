@@ -1,7 +1,84 @@
 {
-  "active": false,
+  "active": true,
   "connections": {
-    "GET E-Doreczenie": {
+    "SET VERB to GET": {
+      "main": [
+        [
+          {
+            "node": "MESSAGE",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SET VERB to POST": {
+      "main": [
+        [
+          {
+            "node": "MESSAGE",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SET VERB to HEAD": {
+      "main": [
+        [
+          {
+            "node": "MESSAGE",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SET VERB to PUT": {
+      "main": [
+        [
+          {
+            "node": "MESSAGE",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SET VERB to PATCH": {
+      "main": [
+        [
+          {
+            "node": "MESSAGE",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SET VERB to DELETE": {
+      "main": [
+        [
+          {
+            "node": "MESSAGE",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pushover1": {
+      "main": [
+        [
+          {
+            "node": "Gmail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MESSAGE": {
       "main": [
         [
           {
@@ -9,38 +86,49 @@
             "type": "main",
             "index": 0
           }
-        ],
+        ]
+      ]
+    },
+    "GET E-Doreczenie": {
+      "main": [
         [
           {
-            "node": "Pushover1",
+            "node": "SET VERB to GET",
             "type": "main",
             "index": 0
           }
         ],
         [
           {
-            "node": "Pushover1",
+            "node": "SET VERB to POST",
             "type": "main",
             "index": 0
           }
         ],
         [
           {
-            "node": "Pushover1",
+            "node": "SET VERB to HEAD",
             "type": "main",
             "index": 0
           }
         ],
         [
           {
-            "node": "Pushover1",
+            "node": "SET VERB to PUT",
             "type": "main",
             "index": 0
           }
         ],
         [
           {
-            "node": "Pushover1",
+            "node": "SET VERB to PATCH",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "SET VERB to DELETE",
             "type": "main",
             "index": 0
           }
@@ -56,23 +144,155 @@
   "name": "E-Doreczenia WebHooks",
   "nodes": [
     {
-      "parameters": {},
-      "id": "9373ca7b-1a3b-4e26-910f-9ec4ed6da26a",
-      "name": "When clicking ‘Test workflow’",
-      "type": "n8n-nodes-base.manualTrigger",
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f5e440eb-86b2-404f-8493-723d1051e103",
+              "name": "VERB",
+              "value": "GET",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "7eb84ac5-b08f-489c-beb1-ce0947245f86",
+      "name": "SET VERB to GET",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
       "position": [
-        560,
-        220
-      ],
-      "typeVersion": 1
+        200,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f5e440eb-86b2-404f-8493-723d1051e103",
+              "name": "VERB",
+              "value": "POST",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "id": "97a0a458-b40d-4e24-bb61-3aec034fb288",
+      "name": "SET VERB to POST",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        200,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f5e440eb-86b2-404f-8493-723d1051e103",
+              "name": "VERB",
+              "value": "HEAD",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "id": "6460e8c7-fed4-42b8-bccb-1e5008cb6f0e",
+      "name": "SET VERB to HEAD",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        200,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f5e440eb-86b2-404f-8493-723d1051e103",
+              "name": "VERB",
+              "value": "PUT",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "id": "1c899dd5-b605-4941-9cda-09826bbeeb27",
+      "name": "SET VERB to PUT",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        200,
+        480
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f5e440eb-86b2-404f-8493-723d1051e103",
+              "name": "VERB",
+              "value": " PATCH",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "id": "4afb7a37-9c80-49f1-9d07-68aba9925db2",
+      "name": "SET VERB to PATCH",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        200,
+        640
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f5e440eb-86b2-404f-8493-723d1051e103",
+              "name": "VERB",
+              "value": "DELETE",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "id": "42278aba-922e-4bea-b830-4c6fabdd2861",
+      "name": "SET VERB to DELETE",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        200,
+        800
+      ]
     },
     {
       "parameters": {
         "userKey": "udbkdo9yvaps1khkce78ogwwro4veo",
-        "message": "={{ $json.body.toJsonString() }}",
+        "message": "={{ $json.VERB }}: {{ $('GET E-Doreczenie').item.json.body.toJsonString() }}",
         "priority": 0,
         "additionalFields": {
-          "sound": "alien",
+          "sound": "cashregister",
           "title": "E-Doreczenia"
         }
       },
@@ -81,13 +301,63 @@
       "type": "n8n-nodes-base.pushover",
       "typeVersion": 1,
       "position": [
-        780,
-        480
+        760,
+        400
       ],
+      "retryOnFail": true,
+      "notesInFlow": true,
       "credentials": {
         "pushoverApi": {
           "id": "1",
           "name": "Pushover account"
+        }
+      },
+      "onError": "continueRegularOutput",
+      "notes": "{{ $json.VERB }}: {{ $('GET E-Doreczenie').item.json.body.toJsonString() }}"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f5e440eb-86b2-404f-8493-723d1051e103",
+              "name": "MESSAGE",
+              "value": "={{ $json.VERB }}: {{ $('GET E-Doreczenie').item.json.body.toJsonString() }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "id": "fa11c8ab-abd3-4929-8c0b-21cdfbbf7e70",
+      "name": "MESSAGE",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        540,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "sendTo": "lukasz.luczko@gmail.com",
+        "subject": "={{ $('MESSAGE').item.json.VERB }} E-DORECZENIA!!!!",
+        "message": "=Nowa wiadomość na mObywatel!!! <BR> {{ $('MESSAGE').item.json.MESSAGE }}",
+        "options": {}
+      },
+      "id": "76968294-b62d-45e1-87d6-6d7acc71f721",
+      "name": "Gmail",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        960,
+        400
+      ],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "2",
+          "name": "Gmail account"
         }
       }
     },
@@ -112,8 +382,8 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
       "position": [
-        460,
-        480
+        -140,
+        400
       ],
       "webhookId": "0cc0f7b4-7d83-4e09-a4cb-b7d400289a5d",
       "notesInFlow": true
@@ -125,7 +395,7 @@
   },
   "staticData": null,
   "tags": [],
-  "triggerCount": 0,
-  "updatedAt": "2024-09-10T10:06:43.000Z",
-  "versionId": "e8448171-c81e-4727-9901-4473d0c9a65f"
+  "triggerCount": 6,
+  "updatedAt": "2024-09-10T14:49:33.000Z",
+  "versionId": "9b165e80-9e73-4861-9955-ed132fe5afdb"
 }
