@@ -382,7 +382,7 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
       "position": [
-        -140,
+        -440,
         400
       ],
       "webhookId": "0cc0f7b4-7d83-4e09-a4cb-b7d400289a5d",
@@ -396,6 +396,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 6,
-  "updatedAt": "2024-09-10T14:49:33.000Z",
-  "versionId": "9b165e80-9e73-4861-9955-ed132fe5afdb"
+  "updatedAt": "2024-09-11T11:41:05.000Z",
+  "versionId": "711b40a5-a548-452c-b0e2-03246ace09b2"
 }
