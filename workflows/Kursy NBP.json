@@ -78,7 +78,29 @@
       "main": [
         [
           {
-            "node": "HTTP Request",
+            "node": "Home Assistant",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Home Assistant": {
+      "main": [
+        [
+          {
+            "node": "HA SMS ON",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HA SMS ON": {
+      "main": [
+        [
+          {
+            "node": "SEND SMS",
             "type": "main",
             "index": 0
           }
@@ -180,7 +202,7 @@
       "credentials": {
         "airtableOAuth2Api": {
           "id": "eXM9xuoteFee24Jw",
-          "name": "Airtable account 2"
+          "name": "Airtable account"
         }
       }
     },
@@ -266,9 +288,49 @@
       "credentials": {
         "airtableOAuth2Api": {
           "id": "eXM9xuoteFee24Jw",
-          "name": "Airtable account 2"
+          "name": "Airtable account"
         }
       }
+    },
+    {
+      "parameters": {
+        "resource": "state",
+        "entityId": "input_boolean.kursy_walut_via_sms"
+      },
+      "id": "4606a52c-95ed-4e01-84b5-d8c36969e44b",
+      "name": "Home Assistant",
+      "type": "n8n-nodes-base.homeAssistant",
+      "typeVersion": 1,
+      "position": [
+        1160,
+        280
+      ],
+      "credentials": {
+        "homeAssistantApi": {
+          "id": "fm6tVdL9LCuCE8lq",
+          "name": "Home Assistant account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.state }}",
+              "value2": "on"
+            }
+          ]
+        }
+      },
+      "id": "c355866a-f768-4243-a04a-86200afb2218",
+      "name": "HA SMS ON",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        1340,
+        280
+      ]
     },
     {
       "parameters": {
@@ -282,12 +344,12 @@
         "options": {}
       },
       "id": "f6699fb9-740c-4143-8d03-a4585813bc04",
-      "name": "HTTP Request",
+      "name": "SEND SMS",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
       "position": [
-        1180,
-        280
+        1580,
+        260
       ],
       "credentials": {
         "httpBasicAuth": {
@@ -307,6 +369,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2024-03-06T12:00:27.000Z",
-  "versionId": "d307a6c0-f3db-41da-af51-85cb461f6275"
+  "updatedAt": "2024-09-12T09:53:31.000Z",
+  "versionId": "cecaa74d-386e-4890-918c-f3ceef992b53"
 }
