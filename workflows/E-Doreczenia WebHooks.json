@@ -372,7 +372,7 @@
           "PATCH",
           "DELETE"
         ],
-        "path": "edoreczeniamessagecallback",
+        "path": "/edoreczeniamessagecallback",
         "responseMode": "lastNode",
         "responseData": "noData",
         "options": {}
@@ -382,7 +382,7 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
       "position": [
-        -440,
+        -240,
         400
       ],
       "webhookId": "0cc0f7b4-7d83-4e09-a4cb-b7d400289a5d",
@@ -396,6 +396,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 6,
-  "updatedAt": "2024-09-11T11:41:05.000Z",
-  "versionId": "711b40a5-a548-452c-b0e2-03246ace09b2"
+  "updatedAt": "2024-09-13T06:49:20.000Z",
+  "versionId": "aa664c74-04a5-4cf8-bbe7-496b8cc64a26"
 }
