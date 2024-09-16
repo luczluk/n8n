@@ -134,6 +134,118 @@
           }
         ]
       ]
+    },
+    "GET E-Doreczenie LLU": {
+      "main": [
+        [
+          {
+            "node": "SET VERB to GET1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "SET VERB to POST1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "SET VERB to HEAD1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "SET VERB to PUT1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "SET VERB to PATCH1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "SET VERB to DELETE1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SET VERB to GET1": {
+      "main": [
+        [
+          {
+            "node": "MESSAGE",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SET VERB to POST1": {
+      "main": [
+        [
+          {
+            "node": "MESSAGE",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SET VERB to HEAD1": {
+      "main": [
+        [
+          {
+            "node": "MESSAGE",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SET VERB to PUT1": {
+      "main": [
+        [
+          {
+            "node": "MESSAGE",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SET VERB to PATCH1": {
+      "main": [
+        [
+          {
+            "node": "MESSAGE",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SET VERB to DELETE1": {
+      "main": [
+        [
+          {
+            "node": "MESSAGE",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2024-09-10T08:32:41.475Z",
@@ -152,9 +264,16 @@
               "name": "VERB",
               "value": "GET",
               "type": "string"
+            },
+            {
+              "id": "a66f01e6-98cd-4cc6-8ac8-a378a26c3545",
+              "name": "KTO",
+              "value": "Ania",
+              "type": "string"
             }
           ]
         },
+        "includeOtherFields": true,
         "options": {}
       },
       "id": "7eb84ac5-b08f-489c-beb1-ce0947245f86",
@@ -174,6 +293,12 @@
               "id": "f5e440eb-86b2-404f-8493-723d1051e103",
               "name": "VERB",
               "value": "POST",
+              "type": "string"
+            },
+            {
+              "id": "8e118c7e-0010-4317-8de7-046a385e1589",
+              "name": "KTO",
+              "value": "Ania",
               "type": "string"
             }
           ]
@@ -199,6 +324,12 @@
               "name": "VERB",
               "value": "HEAD",
               "type": "string"
+            },
+            {
+              "id": "dca37e83-8f67-4f03-85c7-f5369595e669",
+              "name": "KTO",
+              "value": "Ania",
+              "type": "string"
             }
           ]
         },
@@ -222,6 +353,12 @@
               "id": "f5e440eb-86b2-404f-8493-723d1051e103",
               "name": "VERB",
               "value": "PUT",
+              "type": "string"
+            },
+            {
+              "id": "7e05cae9-2ee9-4ffe-bbe6-1fec9945a136",
+              "name": "KTO",
+              "value": "Ania",
               "type": "string"
             }
           ]
@@ -247,6 +384,12 @@
               "name": "VERB",
               "value": " PATCH",
               "type": "string"
+            },
+            {
+              "id": "60f39556-5842-40ef-8507-fcff0b8c79b7",
+              "name": "KTO",
+              "value": "Ania",
+              "type": "string"
             }
           ]
         },
@@ -271,6 +414,12 @@
               "name": "VERB",
               "value": "DELETE",
               "type": "string"
+            },
+            {
+              "id": "d0e7f2af-db37-4e59-bfee-3533bc49a457",
+              "name": "KTO",
+              "value": "Ania",
+              "type": "string"
             }
           ]
         },
@@ -289,7 +438,7 @@
     {
       "parameters": {
         "userKey": "udbkdo9yvaps1khkce78ogwwro4veo",
-        "message": "={{ $json.VERB }}: {{ $('GET E-Doreczenie').item.json.body.toJsonString() }}",
+        "message": "={{ $json.MESSAGE }}",
         "priority": 0,
         "additionalFields": {
           "sound": "cashregister",
@@ -322,7 +471,7 @@
             {
               "id": "f5e440eb-86b2-404f-8493-723d1051e103",
               "name": "MESSAGE",
-              "value": "={{ $json.VERB }}: {{ $('GET E-Doreczenie').item.json.body.toJsonString() }}",
+              "value": "={{ $json.KTO }} - {{ $json.VERB }}: {{ $json.body.toJsonString() }}",
               "type": "string"
             }
           ]
@@ -387,6 +536,213 @@
       ],
       "webhookId": "0cc0f7b4-7d83-4e09-a4cb-b7d400289a5d",
       "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "multipleMethods": true,
+        "httpMethod": [
+          "GET",
+          "POST",
+          "HEAD",
+          "PUT",
+          "PATCH",
+          "DELETE"
+        ],
+        "path": "/edoreczeniamessagecallbackllu",
+        "responseMode": "lastNode",
+        "responseData": "noData",
+        "options": {}
+      },
+      "id": "79ceff49-eba5-4d6a-a93a-51290f6d1853",
+      "name": "GET E-Doreczenie LLU",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -840,
+        420
+      ],
+      "webhookId": "0cc0f7b4-7d83-4e09-a4cb-b7d400289a5d",
+      "notesInFlow": true
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f5e440eb-86b2-404f-8493-723d1051e103",
+              "name": "VERB",
+              "value": "GET",
+              "type": "string"
+            },
+            {
+              "id": "a66f01e6-98cd-4cc6-8ac8-a378a26c3545",
+              "name": "KTO",
+              "value": "Łukasz",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "id": "1af890ad-35fe-4ea4-9dea-35a90da4de4d",
+      "name": "SET VERB to GET1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -460,
+        40
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f5e440eb-86b2-404f-8493-723d1051e103",
+              "name": "VERB",
+              "value": "POST",
+              "type": "string"
+            },
+            {
+              "id": "8e118c7e-0010-4317-8de7-046a385e1589",
+              "name": "KTO",
+              "value": "Łukasz",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "id": "98bf738b-512d-49b8-ad04-daf37638215a",
+      "name": "SET VERB to POST1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -460,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f5e440eb-86b2-404f-8493-723d1051e103",
+              "name": "VERB",
+              "value": "HEAD",
+              "type": "string"
+            },
+            {
+              "id": "dca37e83-8f67-4f03-85c7-f5369595e669",
+              "name": "KTO",
+              "value": "Łukasz",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "id": "27545a9b-56a1-4e1a-a71f-b8638a0bf989",
+      "name": "SET VERB to HEAD1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -460,
+        360
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f5e440eb-86b2-404f-8493-723d1051e103",
+              "name": "VERB",
+              "value": "PUT",
+              "type": "string"
+            },
+            {
+              "id": "7e05cae9-2ee9-4ffe-bbe6-1fec9945a136",
+              "name": "KTO",
+              "value": "Łukasz",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "id": "4d271519-e810-4c5a-9e13-469a1df59e02",
+      "name": "SET VERB to PUT1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -460,
+        520
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f5e440eb-86b2-404f-8493-723d1051e103",
+              "name": "VERB",
+              "value": " PATCH",
+              "type": "string"
+            },
+            {
+              "id": "60f39556-5842-40ef-8507-fcff0b8c79b7",
+              "name": "KTO",
+              "value": "Łukasz",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "id": "204772e7-987d-49b0-b943-78ee5db5d9e2",
+      "name": "SET VERB to PATCH1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -460,
+        680
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f5e440eb-86b2-404f-8493-723d1051e103",
+              "name": "VERB",
+              "value": "DELETE",
+              "type": "string"
+            },
+            {
+              "id": "d0e7f2af-db37-4e59-bfee-3533bc49a457",
+              "name": "KTO",
+              "value": "Łukasz",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "id": "68adb953-e986-4beb-a193-8778aba813bd",
+      "name": "SET VERB to DELETE1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -460,
+        840
+      ]
     }
   ],
   "pinData": {},
@@ -395,7 +751,7 @@
   },
   "staticData": null,
   "tags": [],
-  "triggerCount": 6,
-  "updatedAt": "2024-09-13T06:49:20.000Z",
-  "versionId": "aa664c74-04a5-4cf8-bbe7-496b8cc64a26"
+  "triggerCount": 12,
+  "updatedAt": "2024-09-16T15:29:57.000Z",
+  "versionId": "70c80c2f-7479-4d16-8a95-1bf7d87cba5d"
 }
