@@ -224,7 +224,7 @@
     },
     {
       "parameters": {
-        "url": "https://api.openweathermap.org/data/2.5/onecall?lat=52.1531&lon=21.1104&appid=ae75f9863b9eac983c31433a0edfe79d&units=metric",
+        "url": "https://api.openweathermap.org/data/3.0/onecall?lat=52.1531&lon=21.1104&appid=ae75f9863b9eac983c31433a0edfe79d&units=metric",
         "options": {}
       },
       "id": "dae70030-a383-42c9-99d6-b4bafcc4164a",
@@ -573,6 +573,6 @@
   },
   "tags": [],
   "triggerCount": 2,
-  "updatedAt": "2024-07-15T10:09:02.000Z",
-  "versionId": "6922fa9a-fa41-447f-8f73-4b31f79c3dc7"
+  "updatedAt": "2024-09-20T15:39:48.000Z",
+  "versionId": "adffc81d-14f4-4d9a-967b-1f1161ffb4cd"
 }
