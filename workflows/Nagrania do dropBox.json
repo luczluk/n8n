@@ -1,0 +1,177 @@
+{
+  "active": false,
+  "connections": {
+    "Local File Trigger": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pushover": {
+      "main": [
+        [
+          {
+            "node": "Nagranie",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Nagranie": {
+      "main": [
+        [
+          {
+            "node": "Dropbox",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Pushover",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2024-10-21T14:35:18.287Z",
+  "id": "bVxybhLzA2ZR9UC2",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Nagrania do dropBox",
+  "nodes": [
+    {
+      "parameters": {
+        "triggerOn": "folder",
+        "path": "/nagraniaKamery/",
+        "events": [
+          "add"
+        ],
+        "options": {}
+      },
+      "id": "e9e44f2a-ee46-4a16-b98e-103a837666bf",
+      "name": "Local File Trigger",
+      "type": "n8n-nodes-base.localFileTrigger",
+      "typeVersion": 1,
+      "position": [
+        20,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "userKey": "udbkdo9yvaps1khkce78ogwwro4veo",
+        "message": "=Ruch za oknem {{ $json.path }}",
+        "priority": 0,
+        "additionalFields": {
+          "sound": "gamelan",
+          "title": "Ruch za oknem"
+        }
+      },
+      "id": "86bd29e6-1908-4a67-a37f-102edd2bfef9",
+      "name": "Pushover",
+      "type": "n8n-nodes-base.pushover",
+      "typeVersion": 1,
+      "position": [
+        500,
+        300
+      ],
+      "credentials": {
+        "pushoverApi": {
+          "id": "1",
+          "name": "Pushover account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "path": "=/Nagrania/{{$node[\"Nagranie\"].json.fileName}}",
+        "binaryData": true
+      },
+      "id": "c69b3cdf-53f3-470a-ada1-e8207cfb3381",
+      "name": "Dropbox",
+      "type": "n8n-nodes-base.dropbox",
+      "typeVersion": 1,
+      "position": [
+        940,
+        300
+      ],
+      "credentials": {
+        "dropboxOAuth2Api": {
+          "id": "3",
+          "name": "Dropbox account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fileSelector": "={{ $('Local File Trigger').item.json.path }}",
+        "options": {}
+      },
+      "id": "6094b6dd-d24c-4d10-a655-705146265f4e",
+      "name": "Nagranie",
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        740,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "a1f954ca-4174-42e8-86c6-0754164b9ac2",
+              "leftValue": "={{ $json.path }}",
+              "rightValue": ".mp4",
+              "operator": {
+                "type": "string",
+                "operation": "endsWith"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "629cca7f-3fae-4636-8a16-c1135d1051fb",
+      "name": "If",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        240,
+        320
+      ]
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2024-10-21T17:23:58.000Z",
+  "versionId": "aeaeb90b-8241-411b-b92f-e9a90d78a4b8"
+}
