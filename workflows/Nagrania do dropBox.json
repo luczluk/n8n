@@ -1,5 +1,5 @@
 {
-  "active": false,
+  "active": true,
   "connections": {
     "Local File Trigger": {
       "main": [
@@ -16,7 +16,7 @@
       "main": [
         [
           {
-            "node": "Nagranie",
+            "node": "Wait",
             "type": "main",
             "index": 0
           }
@@ -44,6 +44,22 @@
           }
         ]
       ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Nagranie",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Dropbox": {
+      "main": [
+        []
+      ]
     }
   },
   "createdAt": "2024-10-21T14:35:18.287Z",
@@ -67,7 +83,7 @@
       "type": "n8n-nodes-base.localFileTrigger",
       "typeVersion": 1,
       "position": [
-        20,
+        -260,
         320
       ]
     },
@@ -86,7 +102,7 @@
       "type": "n8n-nodes-base.pushover",
       "typeVersion": 1,
       "position": [
-        500,
+        180,
         300
       ],
       "credentials": {
@@ -107,7 +123,7 @@
       "type": "n8n-nodes-base.dropbox",
       "typeVersion": 1,
       "position": [
-        940,
+        720,
         300
       ],
       "credentials": {
@@ -127,7 +143,7 @@
       "type": "n8n-nodes-base.readWriteFile",
       "typeVersion": 1,
       "position": [
-        740,
+        540,
         300
       ]
     },
@@ -160,9 +176,23 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        240,
+        -80,
         320
       ]
+    },
+    {
+      "parameters": {
+        "amount": 15
+      },
+      "id": "d3ac5296-f89b-410a-bc67-24b695efa0f6",
+      "name": "Wait",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        360,
+        300
+      ],
+      "webhookId": "ee098477-aef1-4e36-ba8b-f04605f74b32"
     }
   ],
   "pinData": {},
@@ -172,6 +202,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2024-10-21T17:23:58.000Z",
-  "versionId": "aeaeb90b-8241-411b-b92f-e9a90d78a4b8"
+  "updatedAt": "2024-10-22T07:16:06.000Z",
+  "versionId": "c8c031c3-84cc-40b0-8ab7-74a78f8e9272"
 }
