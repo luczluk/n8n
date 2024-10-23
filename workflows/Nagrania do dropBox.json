@@ -12,17 +12,6 @@
         ]
       ]
     },
-    "Pushover": {
-      "main": [
-        [
-          {
-            "node": "Code1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Nagranie": {
       "main": [
         [
@@ -49,7 +38,18 @@
       "main": [
         [
           {
-            "node": "Nagranie",
+            "node": "Execute Command",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pushover": {
+      "main": [
+        [
+          {
+            "node": "Code1",
             "type": "main",
             "index": 0
           }
@@ -118,8 +118,8 @@
       "type": "n8n-nodes-base.dropbox",
       "typeVersion": 1,
       "position": [
-        680,
-        300
+        920,
+        120
       ],
       "credentials": {
         "dropboxOAuth2Api": {
@@ -138,8 +138,8 @@
       "type": "n8n-nodes-base.readWriteFile",
       "typeVersion": 1,
       "position": [
-        500,
-        300
+        720,
+        120
       ]
     },
     {
@@ -178,14 +178,27 @@
     {
       "parameters": {
         "mode": "runOnceForEachItem",
-        "jsCode": "// Add a new field called 'myNewField' to the JSON of the item\n let thumbFile = $('Local File Trigger').item.json.path\nlet file = thumbFile.slice(0, -6);\n$input.item.json.plik = file;\nreturn $input.item;"
+        "jsCode": "// Add a new field called 'myNewField' to the JSON of the item\n let thumbFile = $('Local File Trigger').item.json.path\nlet fullfilePath = thumbFile.slice(0, -6);\nlet filePath = fullfilePath.replace(/^.*[\\\\\\/]/, '');\n$input.item.json.fullfilePath = fullfilePath;\n$input.item.json.filePath = filePath;\nreturn $input.item;"
       },
       "id": "31839df1-457d-432a-928c-8a3b8668fee8",
       "name": "Code1",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        320,
+        340,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "command": "=cp {{ $json.fullfilePath }} /dropbox/{{ $json.filePath }}"
+      },
+      "id": "6b28df5e-cf92-4b5f-be7a-5df40a9780b5",
+      "name": "Execute Command",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        540,
         300
       ]
     }
@@ -197,6 +210,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2024-10-23T07:15:59.000Z",
-  "versionId": "055c2a20-db53-4d81-8e5a-629d5c4d2c1c"
+  "updatedAt": "2024-10-23T13:02:51.000Z",
+  "versionId": "116a6293-cc45-4ab9-b2b0-cad4a93cfd91"
 }
