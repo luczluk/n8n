@@ -16,7 +16,7 @@
       "main": [
         [
           {
-            "node": "Wait",
+            "node": "Code1",
             "type": "main",
             "index": 0
           }
@@ -45,7 +45,7 @@
         ]
       ]
     },
-    "Wait": {
+    "Code1": {
       "main": [
         [
           {
@@ -54,11 +54,6 @@
             "index": 0
           }
         ]
-      ]
-    },
-    "Dropbox": {
-      "main": [
-        []
       ]
     }
   },
@@ -102,7 +97,7 @@
       "type": "n8n-nodes-base.pushover",
       "typeVersion": 1,
       "position": [
-        180,
+        140,
         300
       ],
       "credentials": {
@@ -123,7 +118,7 @@
       "type": "n8n-nodes-base.dropbox",
       "typeVersion": 1,
       "position": [
-        720,
+        680,
         300
       ],
       "credentials": {
@@ -135,7 +130,7 @@
     },
     {
       "parameters": {
-        "fileSelector": "={{ $('Local File Trigger').item.json.path }}",
+        "fileSelector": "={{ $json.plik }}",
         "options": {}
       },
       "id": "6094b6dd-d24c-4d10-a655-705146265f4e",
@@ -143,7 +138,7 @@
       "type": "n8n-nodes-base.readWriteFile",
       "typeVersion": 1,
       "position": [
-        540,
+        500,
         300
       ]
     },
@@ -160,7 +155,7 @@
             {
               "id": "a1f954ca-4174-42e8-86c6-0754164b9ac2",
               "leftValue": "={{ $json.path }}",
-              "rightValue": ".mp4",
+              "rightValue": ".thumb",
               "operator": {
                 "type": "string",
                 "operation": "endsWith"
@@ -182,17 +177,17 @@
     },
     {
       "parameters": {
-        "amount": 15
+        "mode": "runOnceForEachItem",
+        "jsCode": "// Add a new field called 'myNewField' to the JSON of the item\n let thumbFile = $('Local File Trigger').item.json.path\nlet file = thumbFile.slice(0, -6);\n$input.item.json.plik = file;\nreturn $input.item;"
       },
-      "id": "d3ac5296-f89b-410a-bc67-24b695efa0f6",
-      "name": "Wait",
-      "type": "n8n-nodes-base.wait",
-      "typeVersion": 1.1,
+      "id": "31839df1-457d-432a-928c-8a3b8668fee8",
+      "name": "Code1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
       "position": [
-        360,
+        320,
         300
-      ],
-      "webhookId": "ee098477-aef1-4e36-ba8b-f04605f74b32"
+      ]
     }
   ],
   "pinData": {},
@@ -202,6 +197,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2024-10-22T07:16:06.000Z",
-  "versionId": "c8c031c3-84cc-40b0-8ab7-74a78f8e9272"
+  "updatedAt": "2024-10-23T07:15:59.000Z",
+  "versionId": "055c2a20-db53-4d81-8e5a-629d5c4d2c1c"
 }
